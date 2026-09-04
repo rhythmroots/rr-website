@@ -31,7 +31,7 @@
 		},
 		{
 			label: 'How much?',
-			body: '$480 per student per block.',
+			body: '$440 per student per block.',
 			accent: 'forest'
 		}
 	] as const;
@@ -147,7 +147,7 @@
 						Built for beginners who are ready to grow.
 					</h2>
 					<p class="mt-4 max-w-xl text-base leading-relaxed text-ink/75 sm:text-lg">
-						Rhythm Roots is designed for the 2026–2027 school year — intimate classes, clear
+						Rhythm Roots is designed for the 2026–2027 school year — small group classes, clear
 						structure, and steady progress from the first chord to confident playing.
 					</p>
 				</div>
@@ -274,27 +274,17 @@
 
 				<aside class="flex flex-col justify-between gap-8 lg:pt-10">
 					<div class="rounded-3xl bg-terracotta px-7 py-8 sm:px-8 sm:py-10">
-						<p class="text-xs font-semibold tracking-[0.2em] text-paper/80 uppercase">
-							Tuition payment options
+						<p class="text-lg font-semibold tracking-[0.2em] text-paper/80 uppercase">
+							Payment details
 						</p>
 						<ol class="mt-6 space-y-5">
 							<li class="flex gap-4">
 								<span
 									class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-paper/15 font-display text-sm font-semibold"
-									>1</span
+									>>></span
 								>
 								<p class="pt-1 text-base leading-relaxed">
-									<strong class="font-semibold">$800</strong> at the first class
-								</p>
-							</li>
-							<li class="flex gap-4">
-								<span
-									class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-paper/15 font-display text-sm font-semibold"
-									>2</span
-								>
-								<p class="pt-1 text-base leading-relaxed">
-									<strong class="font-semibold">$400</strong> at the first class and
-									<strong class="font-semibold">$400</strong> by January 1st
+									<strong class="font-semibold">E-transfer</strong> before the first class
 								</p>
 							</li>
 						</ol>
@@ -311,12 +301,12 @@
 		</section>
 	</main>
 
-	<footer class="border-t border-paper/10 bg-[#527368] px-5 py-8 text-paper/60 sm:px-8">
+	<footer class="border-t border-paper/10 bg-sage px-5 py-8 text-paper/60 sm:px-8">
 		<div
 			class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
 		>
 			<img src={logoWhite} alt="Rhythm Roots" class="h-8 w-auto opacity-90" />
-			<p class="text-sm">© {new Date().getFullYear()} Rhythm Roots. Beginner guitar, grades 4–6.</p>
+			<p class="text-sm">© {new Date().getFullYear()} Rhythm Roots. Beginner guitar lessons, grades 4–6.</p>
 		</div>
 	</footer>
 </div>

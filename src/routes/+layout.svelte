@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
-	import faviconPng from '$lib/assets/favicon-32.png';
+	import favicon from '$lib/assets/rr-fav.png';
+	import faviconPng from '$lib/assets/rr-fav.png';
 	import appleTouchIcon from '$lib/assets/apple-touch-icon.png';
 
 	let { children } = $props();
