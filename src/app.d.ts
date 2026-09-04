@@ -8,10 +8,8 @@ declare global {
 		// interface PageState {}
 		interface Platform {
 			env: {
-				SMTP_HOST?: string;
-				SMTP_PORT?: string;
-				SMTP_USER?: string;
-				SMTP_PASSWORD?: string;
+				HOSTINGER_API_KEY?: string;
+				HOSTINGER_MAILBOX_ID?: string;
 				CONTACT_EMAIL?: string;
 			};
 		}

@@ -1,4 +1,3 @@
-import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 
 export type RegistrationEmail = {
@@ -9,17 +8,9 @@ export type RegistrationEmail = {
 	message: string;
 };
 
-function smtpConfig() {
-	const port = Number(env.SMTP_PORT || 465);
-	return {
-		host: env.SMTP_HOST || 'smtp.hostinger.com',
-		port,
-		secure: port === 465,
-		user: env.SMTP_USER || 'contact@rhythmroots.studio',
-		password: env.SMTP_PASSWORD ?? '',
-		to: env.CONTACT_EMAIL || 'contact@rhythmroots.studio'
-	};
-}
+const CONTACT_EMAIL = 'contact@rhythmroots.studio';
+const MAIL_API = 'https://api.mail.hostinger.com/api/v1';
+const DEFAULT_MAILBOX_ID = 'AC65cc315d2015b06ffd1cc2a2e49a';
 
 function escapeHtml(value: string) {
 	return value
@@ -29,7 +20,45 @@ function escapeHtml(value: string) {
 		.replaceAll('"', '&quot;');
 }
 
-function buildBodies(registration: RegistrationEmail) {
+function mailConfig(platformEnv?: App.Platform['env']) {
+	return {
+		token: env.HOSTINGER_API_KEY || platformEnv?.HOSTINGER_API_KEY || '',
+		mailboxId: env.HOSTINGER_MAILBOX_ID || platformEnv?.HOSTINGER_MAILBOX_ID || DEFAULT_MAILBOX_ID,
+		studio: env.CONTACT_EMAIL || platformEnv?.CONTACT_EMAIL || CONTACT_EMAIL
+	};
+}
+
+async function sendMail(
+	config: ReturnType<typeof mailConfig>,
+	payload: {
+		to: string;
+		subject: string;
+		text: string;
+		html: string;
+	}
+) {
+	const response = await fetch(`${MAIL_API}/mailboxes/${config.mailboxId}/send`, {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${config.token}`,
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			to: [payload.to],
+			displayName: 'Rhythm Roots',
+			subject: payload.subject,
+			text: payload.text,
+			html: payload.html
+		})
+	});
+
+	if (!response.ok) {
+		const details = await response.text();
+		throw new Error(`Hostinger Mail API ${response.status}: ${details.slice(0, 300)}`);
+	}
+}
+
+function studioBodies(registration: RegistrationEmail) {
 	const blocks = registration.blocks.length ? registration.blocks.join(', ') : 'Not specified';
 	const message = registration.message || '(none)';
 
@@ -74,59 +103,72 @@ function buildBodies(registration: RegistrationEmail) {
 	return { text, html };
 }
 
-export async function sendRegistrationEmail(registration: RegistrationEmail) {
-	const config = smtpConfig();
+function confirmationBodies(registration: RegistrationEmail) {
+	const firstName = registration.name.split(/\s+/)[0] || 'there';
+	const blocks = registration.blocks.length
+		? registration.blocks.join(' and ')
+		: 'the upcoming class blocks';
 
-	if (!config.password) {
-		throw new Error('SMTP_PASSWORD is not configured');
+	const text = [
+		`Hi ${firstName},`,
+		'',
+		'Thank you for your interest in Rhythm Roots. We received your registration details and will be in touch with you soon.',
+		'',
+		`Student: ${registration.student}`,
+		`Blocks: ${blocks}`,
+		'',
+		'If you have questions in the meantime, reply to this email.',
+		'',
+		'Rhythm Roots',
+		'rhythmroots.studio'
+	].join('\n');
+
+	const html = `
+		<div style="font-family: Outfit, ui-sans-serif, system-ui, sans-serif; color: #122424; line-height: 1.6;">
+			<p style="margin: 0 0 16px;">Hi ${escapeHtml(firstName)},</p>
+			<p style="margin: 0 0 16px;">
+				Thank you for your interest in Rhythm Roots. We received your registration details and will be in touch with you soon.
+			</p>
+			<p style="margin: 0 0 16px;">
+				<strong>Student:</strong> ${escapeHtml(registration.student)}<br />
+				<strong>Blocks:</strong> ${escapeHtml(blocks)}
+			</p>
+			<p style="margin: 0 0 16px;">If you have questions in the meantime, reply to this email.</p>
+			<p style="margin: 0;">
+				Rhythm Roots<br />
+				<span style="color: #5b7869;">rhythmroots.studio</span>
+			</p>
+		</div>
+	`.trim();
+
+	return { text, html };
+}
+
+export async function sendRegistrationEmail(
+	registration: RegistrationEmail,
+	platformEnv?: App.Platform['env']
+) {
+	const config = mailConfig(platformEnv);
+
+	if (!config.token) {
+		throw new Error('HOSTINGER_API_KEY is not configured');
 	}
 
-	const { text, html } = buildBodies(registration);
-	const subject = `Registration interest: ${registration.student}`;
+	const studio = studioBodies(registration);
+	await sendMail(config, {
+		to: config.studio,
+		subject: `Registration interest: ${registration.student}`,
+		...studio
+	});
 
-	if (dev) {
-		const { default: nodemailer } = await import('nodemailer');
-		const transporter = nodemailer.createTransport({
-			host: config.host,
-			port: config.port,
-			secure: config.secure,
-			auth: {
-				user: config.user,
-				pass: config.password
-			}
+	try {
+		const confirmation = confirmationBodies(registration);
+		await sendMail(config, {
+			to: registration.email,
+			subject: 'We received your Rhythm Roots registration interest',
+			...confirmation
 		});
-
-		await transporter.sendMail({
-			from: { name: 'Rhythm Roots', address: config.user },
-			to: config.to,
-			replyTo: { name: registration.name, address: registration.email },
-			subject,
-			text,
-			html
-		});
-		return;
+	} catch (error) {
+		console.error('Confirmation email failed', error);
 	}
-
-	const { WorkerMailer } = await import('worker-mailer');
-	await WorkerMailer.send(
-		{
-			host: config.host,
-			port: config.port,
-			secure: config.secure,
-			startTls: !config.secure,
-			authType: ['login', 'plain'],
-			credentials: {
-				username: config.user,
-				password: config.password
-			}
-		},
-		{
-			from: { name: 'Rhythm Roots', email: config.user },
-			to: config.to,
-			reply: { name: registration.name, email: registration.email },
-			subject,
-			text,
-			html
-		}
-	);
 }

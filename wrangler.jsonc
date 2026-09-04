@@ -12,9 +12,7 @@
 		"enabled": true
 	},
 	"vars": {
-		"SMTP_HOST": "smtp.hostinger.com",
-		"SMTP_PORT": "465",
-		"SMTP_USER": "contact@rhythmroots.studio",
-		"CONTACT_EMAIL": "contact@rhythmroots.studio"
+		"CONTACT_EMAIL": "contact@rhythmroots.studio",
+		"HOSTINGER_MAILBOX_ID": "AC65cc315d2015b06ffd1cc2a2e49a"
 	}
 }

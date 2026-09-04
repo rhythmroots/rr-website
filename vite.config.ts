@@ -17,9 +17,6 @@ export default defineConfig({
 			adapter: adapter()
 		})
 	],
-	ssr: {
-		external: ['cloudflare:sockets']
-	},
 	test: {
 		expect: { requireAssertions: true },
 		projects: [

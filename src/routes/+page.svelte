@@ -8,6 +8,7 @@
 	let { form }: PageProps = $props();
 	let pending = $state(false);
 	let thanksDialog: HTMLDialogElement | undefined = $state();
+	let formStarted = $state(Date.now());
 
 	function openThanks() {
 		if (!thanksDialog || thanksDialog.open) return;
@@ -251,14 +252,11 @@
 							};
 						}}
 					>
-						<input
-							type="text"
-							name="company"
-							tabindex="-1"
-							autocomplete="off"
-							class="hidden"
-							aria-hidden="true"
-						/>
+						<label class="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+							Company
+							<input type="text" name="company" tabindex="-1" autocomplete="off" />
+						</label>
+						<input type="hidden" name="started" value={String(formStarted)} />
 						<label class="block">
 							<span class="mb-1.5 block text-sm font-medium text-paper/80"
 								>Parent / guardian name</span
