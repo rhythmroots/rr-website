@@ -119,8 +119,9 @@ function confirmationBodies(registration: RegistrationEmail) {
 		'',
 		'If you have questions in the meantime, reply to this email.',
 		'',
+		'Miss Somer,',
 		'Rhythm Roots',
-		'rhythmroots.studio'
+		'<a href="https://rhythmroots.studio">rhythmroots.studio</a>'
 	].join('\n');
 
 	const html = `
