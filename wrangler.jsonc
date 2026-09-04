@@ -10,5 +10,11 @@
 	},
 	"observability": {
 		"enabled": true
+	},
+	"vars": {
+		"SMTP_HOST": "smtp.hostinger.com",
+		"SMTP_PORT": "465",
+		"SMTP_USER": "contact@rhythmroots.studio",
+		"CONTACT_EMAIL": "contact@rhythmroots.studio"
 	}
 }

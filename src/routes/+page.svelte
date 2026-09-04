@@ -1,7 +1,28 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import logo from '$lib/assets/rr-logo-transparent.png';
 	import logoWhite from '$lib/assets/rr-logo-white.png';
 	import banner from '$lib/assets/rhythm-roots-banner-2.png';
+	import type { PageProps } from './$types';
+
+	let { form }: PageProps = $props();
+	let pending = $state(false);
+	let thanksDialog: HTMLDialogElement | undefined = $state();
+
+	function openThanks() {
+		if (!thanksDialog || thanksDialog.open) return;
+		thanksDialog.showModal();
+	}
+
+	function closeThanks() {
+		thanksDialog?.close();
+	}
+
+	$effect(() => {
+		if (form?.success) {
+			openThanks();
+		}
+	});
 
 	const details = [
 		{
@@ -58,7 +79,7 @@
 <div class="min-h-dvh overflow-x-hidden">
 	<header class="absolute inset-x-0 top-0 z-20">
 		<div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
-			<a href="#top" class="inline-flex items-center logo" aria-label="Rhythm Roots home">
+			<a href="#top" class="logo inline-flex items-center" aria-label="Rhythm Roots home">
 				<img src={logo} alt="Rhythm Roots" class="h-16 w-auto sm:h-20 lg:h-32" />
 			</a>
 			<a
@@ -89,7 +110,7 @@
 				class="absolute inset-0 bg-gradient-to-t from-forest/70 via-transparent to-black/15"
 			></div>
 
-			<div class="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 pt-28 sm:px-8 sm:pb-12">
+			<div class="relative z-10 mx-auto w-full max-w-7xl px-5 pt-28 pb-10 sm:px-8 sm:pb-12">
 				<p
 					class="animate-fade-up mb-5 font-sans text-xs font-semibold tracking-[0.22em] text-blush uppercase"
 				>
@@ -99,15 +120,13 @@
 					class="animate-fade-up-delay-1 max-w-7xl font-display text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
 				>
 					Plant the roots.
-					<em class="mt-1 block font-medium text-blush italic sm:mt-2"
-						>Find the rhythm.</em
-					>
+					<em class="mt-1 block font-medium text-blush italic sm:mt-2">Find the rhythm.</em>
 				</h1>
 				<p
 					class="animate-fade-up-delay-2 mt-6 max-w-lg text-base leading-relaxed text-paper/90 sm:text-lg"
 				>
-					A customized beginner guitar curriculum for grades 4–6 — small groups, school-day
-					lessons, and music that actually sticks.
+					A customized beginner guitar curriculum for grades 4–6 — small groups, school-day lessons,
+					and music that actually sticks.
 				</p>
 				<div class="animate-fade-up-delay-3 mt-9 flex flex-wrap items-center gap-4">
 					<a
@@ -142,7 +161,7 @@
 				<div class="max-w-2xl">
 					<p class="text-xs font-semibold tracking-[0.2em] text-sage uppercase">Course details</p>
 					<h2
-						class="mt-3 font-display text-3xl font-semibold tracking-tight text-forest text-balance sm:text-4xl"
+						class="mt-3 font-display text-3xl font-semibold tracking-tight text-balance text-forest sm:text-4xl"
 					>
 						Built for beginners who are ready to grow.
 					</h2>
@@ -183,7 +202,7 @@
 					</p>
 					<h2
 						id="policies-heading"
-						class="mt-3 font-display text-3xl font-semibold tracking-tight text-forest text-balance sm:text-4xl"
+						class="mt-3 font-display text-3xl font-semibold tracking-tight text-balance text-forest sm:text-4xl"
 					>
 						Roots grow with rhythm and routine.
 					</h2>
@@ -203,7 +222,9 @@
 
 		<!-- Join / CTA -->
 		<section id="join" class="bg-forest py-20 text-paper sm:py-28">
-			<div class="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+			<div
+				class="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16"
+			>
 				<div>
 					<p class="text-xs font-semibold tracking-[0.2em] text-blush uppercase">Reserve a spot</p>
 					<h2
@@ -217,19 +238,37 @@
 					</p>
 
 					<form
-						class="mt-10 max-w-lg space-y-4"
-						action="mailto:hello@rhythmroots.studio"
-						method="get"
-						enctype="text/plain"
+						class="relative mt-10 max-w-lg space-y-4"
+						method="POST"
+						use:enhance={() => {
+							pending = true;
+							return async ({ result, update }) => {
+								pending = false;
+								await update({ reset: result.type === 'success' });
+								if (result.type === 'success') {
+									openThanks();
+								}
+							};
+						}}
 					>
+						<input
+							type="text"
+							name="company"
+							tabindex="-1"
+							autocomplete="off"
+							class="hidden"
+							aria-hidden="true"
+						/>
 						<label class="block">
-							<span class="mb-1.5 block text-sm font-medium text-paper/80">Parent / guardian name</span>
+							<span class="mb-1.5 block text-sm font-medium text-paper/80"
+								>Parent / guardian name</span
+							>
 							<input
 								type="text"
 								name="name"
 								required
 								autocomplete="name"
-								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper placeholder:text-paper/40 ring-1 ring-paper/20 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
+								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 placeholder:text-paper/40 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
 								placeholder="Your name"
 							/>
 						</label>
@@ -240,34 +279,69 @@
 								name="email"
 								required
 								autocomplete="email"
-								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper placeholder:text-paper/40 ring-1 ring-paper/20 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
+								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 placeholder:text-paper/40 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
 								placeholder="you@email.com"
 							/>
 						</label>
 						<label class="block">
-							<span class="mb-1.5 block text-sm font-medium text-paper/80">Student name & grade</span>
+							<span class="mb-1.5 block text-sm font-medium text-paper/80"
+								>Student name & grade</span
+							>
 							<input
 								type="text"
 								name="student"
 								required
-								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper placeholder:text-paper/40 ring-1 ring-paper/20 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
+								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 placeholder:text-paper/40 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
 								placeholder="e.g. Avery, Grade 5"
 							/>
 						</label>
+						<fieldset>
+							<legend class="mb-1.5 text-sm font-medium text-paper/80">Which block?</legend>
+							<p class="mb-3 text-sm text-paper/55">
+								$440 per student per block. Select one or both.
+							</p>
+							<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+								<label
+									class="flex cursor-pointer items-center gap-3 rounded-xl bg-paper/10 px-4 py-3 ring-1 ring-paper/20 transition has-[:checked]:bg-paper/15 has-[:checked]:ring-2 has-[:checked]:ring-blush"
+								>
+									<input
+										type="checkbox"
+										name="blocks"
+										value="Block 1"
+										class="size-4 rounded border-paper/30 bg-paper/10 text-terracotta focus:ring-blush"
+									/>
+									<span class="text-sm font-medium text-paper">Block 1</span>
+								</label>
+								<label
+									class="flex cursor-pointer items-center gap-3 rounded-xl bg-paper/10 px-4 py-3 ring-1 ring-paper/20 transition has-[:checked]:bg-paper/15 has-[:checked]:ring-2 has-[:checked]:ring-blush"
+								>
+									<input
+										type="checkbox"
+										name="blocks"
+										value="Block 2"
+										class="size-4 rounded border-paper/30 bg-paper/10 text-terracotta focus:ring-blush"
+									/>
+									<span class="text-sm font-medium text-paper">Block 2</span>
+								</label>
+							</div>
+						</fieldset>
 						<label class="block">
 							<span class="mb-1.5 block text-sm font-medium text-paper/80">Message (optional)</span>
 							<textarea
 								name="message"
 								rows="3"
-								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper placeholder:text-paper/40 ring-1 ring-paper/20 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
-								placeholder="School, preferred days, or questions"
-							></textarea>
+								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 placeholder:text-paper/40 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
+								placeholder="School, preferred days, or questions"></textarea>
 						</label>
+						{#if form?.error}
+							<p class="text-sm text-blush" role="alert">{form.error}</p>
+						{/if}
 						<button
 							type="submit"
-							class="inline-flex w-full items-center justify-center rounded-full bg-terracotta px-6 py-3.5 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-deep sm:w-auto"
+							disabled={pending}
+							class="inline-flex w-full items-center justify-center rounded-full bg-terracotta px-6 py-3.5 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-deep disabled:cursor-wait disabled:opacity-70 sm:w-auto"
 						>
-							Send registration interest
+							{pending ? 'Sending…' : 'Send registration interest'}
 						</button>
 					</form>
 				</div>
@@ -301,12 +375,36 @@
 		</section>
 	</main>
 
+	<dialog
+		bind:this={thanksDialog}
+		class="fixed top-1/2 left-1/2 z-50 w-[min(calc(100%-2rem),28rem)] -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-paper p-8 text-forest shadow-2xl backdrop:bg-forest/75"
+		aria-labelledby="thanks-title"
+		closedby="any"
+		onclick={(event) => {
+			if (event.target === thanksDialog) closeThanks();
+		}}
+	>
+		<h2 id="thanks-title" class="font-display text-2xl font-semibold tracking-tight text-balance">
+			Thank you for your interest in Rhythm Roots.
+		</h2>
+		<p class="mt-3 text-base leading-relaxed text-ink/75">We will be in touch with you soon.</p>
+		<button
+			type="button"
+			onclick={closeThanks}
+			class="mt-8 inline-flex w-full items-center justify-center rounded-full bg-terracotta px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-deep"
+		>
+			Close
+		</button>
+	</dialog>
+
 	<footer class="border-t border-paper/10 bg-sage px-5 py-8 text-paper/60 sm:px-8">
 		<div
 			class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
 		>
 			<img src={logoWhite} alt="Rhythm Roots" class="h-8 w-auto opacity-90" />
-			<p class="text-sm">© {new Date().getFullYear()} Rhythm Roots. Beginner guitar lessons, grades 4–6.</p>
+			<p class="text-sm">
+				© {new Date().getFullYear()} Rhythm Roots. Beginner guitar lessons, grades 4–6.
+			</p>
 		</div>
 	</footer>
 </div>

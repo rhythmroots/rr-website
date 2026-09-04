@@ -6,7 +6,15 @@ declare global {
 		// interface Locals {}
 		// interface PageData {}
 		// interface PageState {}
-		// interface Platform {}
+		interface Platform {
+			env: {
+				SMTP_HOST?: string;
+				SMTP_PORT?: string;
+				SMTP_USER?: string;
+				SMTP_PASSWORD?: string;
+				CONTACT_EMAIL?: string;
+			};
+		}
 	}
 }
 
