@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Parts of the Guitar — Rhythm Roots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --forest: #0d2b2a;
+    --forest-soft: #1a3d3a;
+    --sage: #5b7869;
+    --sage-mist: #b5c4b1;
+    --terracotta: #c45644;
+    --terracotta-deep: #a84738;
+    --ochre: #c1994f;
+    --blush: #e9b3a7;
+    --sand: #f3efe6;
+    --paper: #faf7f1;
+    --ink: #122424;
+    --display: "Fraunces", ui-serif, Georgia, serif;
+    --sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @page { size: letter portrait; margin: 0; }
+
+  html, body {
+    width: 8.5in;
+    height: 11in;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    position: relative;
+    width: 8.5in;
+    height: 11in;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 95% 75% at 0% 40%, color-mix(in oklab, var(--sage-mist) 36%, transparent) 0%, transparent 58%),
+      radial-gradient(ellipse 70% 55% at 100% 62%, color-mix(in oklab, var(--blush) 30%, transparent) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 40% at 52% 38%, color-mix(in oklab, var(--ochre) 14%, transparent) 0%, transparent 62%),
+      var(--paper);
+    padding: 0.34in 0.4in 0.28in;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.2in;
+    flex: 0 0 auto;
+  }
+
+  .logo { height: 0.58in; width: auto; display: block; }
+
+  .pills { display: flex; gap: 0.1in; }
+
+  .pill {
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 0.07in 0.16in;
+    white-space: nowrap;
+  }
+  .pill-forest { background: var(--forest); color: var(--paper); }
+  .pill-blush { background: var(--blush); color: var(--forest); }
+
+  .hero {
+    position: relative;
+    z-index: 2;
+    margin: 0.14in 0 0.1in;
+    flex: 0 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.06in;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 34px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--forest);
+  }
+
+  .lede {
+    margin-top: 0.05in;
+    font-size: 12px;
+    line-height: 1.35;
+    color: color-mix(in oklab, var(--ink) 72%, white);
+    max-width: 5.6in;
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.48in minmax(0, 1fr) 2.12in;
+    gap: 0.1in;
+    flex: 1 1 auto;
+    min-height: 0;
+    align-items: stretch;
+    padding-bottom: 0.06in;
+  }
+
+  .stage > * {
+    min-height: 0;
+    max-height: 100%;
+  }
+
+  .regions {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .region {
+    position: relative;
+    padding: 0.08in 0.16in 0.08in 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .region-head { height: 16%; }
+  .region-neck { height: 33%; }
+  .region-body { height: 51%; }
+
+  .region::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0.08in;
+    bottom: 0.08in;
+    width: 2px;
+    background: var(--sage);
+    opacity: 0.85;
+  }
+  .region::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 11px;
+    height: 2px;
+    background: var(--sage);
+  }
+  .region.region-head::before { top: 0.08in; box-shadow: 0 calc(100% - 0.18in) 0 var(--sage); }
+  /* bracket caps via extra elements */
+  .bracket-cap {
+    position: absolute;
+    right: 0;
+    width: 11px;
+    height: 2px;
+    background: var(--sage);
+  }
+  .bracket-cap.top { top: 0.08in; }
+  .bracket-cap.bottom { bottom: 0.08in; }
+
+  .region-kicker {
+    font-size: 7.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.03in;
+  }
+
+  .region h2 {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .region p {
+    margin-top: 0.04in;
+    font-size: 10.5px;
+    line-height: 1.35;
+    color: color-mix(in oklab, var(--ink) 68%, white);
+    max-width: 1.28in;
+  }
+
+  .instrument {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .guitar-wrap {
+    position: relative;
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    background: transparent;
+  }
+
+  .guitar-wrap img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    background: transparent;
+  }
+
+  .dot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--paper);
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 3px var(--paper), 0 1px 5px rgba(13, 43, 42, 0.2);
+    z-index: 3;
+    letter-spacing: 0;
+  }
+
+  .dot-1 { left: 63%; top: 8.8%; }
+  .dot-2 { left: 61%; top: 16.2%; }
+  .dot-3 { left: 61%; top: 28.5%; }
+  .dot-4 { left: 61%; top: 41%; }
+  .dot-5 { left: 36%; top: 60.5%; }
+  .dot-6 { left: 71%; top: 64.5%; }
+  .dot-7 { left: 50.5%; top: 74.6%; }
+  .dot-8 { left: 28%; top: 77%; }
+
+  .parts-col {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    gap: 0.06in;
+  }
+
+  .mascot {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 2.7in;
+    margin: 0;
+  }
+
+  .mascot img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .parts {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0;
+    gap: 0.045in;
+  }
+
+  .part {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 0.07in;
+    align-items: start;
+    background: color-mix(in oklab, var(--sand) 70%, white);
+    border-radius: 10px;
+    padding: 0.05in 0.09in 0.05in 0.07in;
+  }
+
+  .num {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--paper);
+    font-size: 8px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .part h3 {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+
+  .part p {
+    margin-top: 0.015in;
+    font-size: 8.5px;
+    line-height: 1.25;
+    color: color-mix(in oklab, var(--ink) 70%, white);
+  }
+
+  footer {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 0.12in;
+    margin-top: 0.12in;
+    flex: 0 0 auto;
+  }
+
+  .foot {
+    border-radius: 14px;
+    padding: 0.13in 0.2in;
+    min-height: 0.62in;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .foot-terra {
+    background: var(--terracotta);
+    color: var(--paper);
+  }
+  .foot-terra .kicker {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .foot-terra .quote {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-top: 0.03in;
+  }
+  .foot-terra em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--blush);
+  }
+
+  .foot-forest {
+    background: var(--forest);
+    color: var(--paper);
+    text-align: right;
+  }
+  .foot-forest .kicker {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+  }
+  .foot-forest .url {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 0.03in;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <img class="logo" src="../assets/logo.png" alt="Rhythm Roots" />
+    </header>
+
+    <div class="hero">
+      <p class="eyebrow">Know your instrument</p>
+      <h1>Parts of the Guitar</h1>
+      <p class="lede">A labeled map of the acoustic guitar — so you can name what you see, hear, and hold.</p>
+    </div>
+
+    <div class="stage">
+      <aside class="regions">
+        <div class="region region-head">
+          <span class="bracket-cap top"></span>
+          <span class="bracket-cap bottom"></span>
+          <p class="region-kicker">Section 01</p>
+          <h2>Headstock</h2>
+          <p>The top of the guitar, where you tune.</p>
+        </div>
+        <div class="region region-neck">
+          <span class="bracket-cap top"></span>
+          <span class="bracket-cap bottom"></span>
+          <p class="region-kicker">Section 02</p>
+          <h2>Neck</h2>
+          <p>Where your fingers press the strings.</p>
+        </div>
+        <div class="region region-body">
+          <span class="bracket-cap top"></span>
+          <span class="bracket-cap bottom"></span>
+          <p class="region-kicker">Section 03</p>
+          <h2>Body</h2>
+          <p>The wooden bowl that holds and shapes the sound.</p>
+        </div>
+      </aside>
+
+      <div class="instrument">
+        <div class="guitar-wrap">
+          <img src="../assets/guitar.png?v=2" alt="Illustrated acoustic guitar" />
+          <span class="dot dot-1">1</span>
+          <span class="dot dot-2">2</span>
+          <span class="dot dot-3">3</span>
+          <span class="dot dot-4">4</span>
+          <span class="dot dot-5">5</span>
+          <span class="dot dot-6">6</span>
+          <span class="dot dot-7">7</span>
+          <span class="dot dot-8">8</span>
+        </div>
+      </div>
+
+      <aside class="parts-col">
+        <figure class="mascot">
+          <img src="../characters/girl/guitar-cutout.png" alt="Girl playing acoustic guitar" />
+        </figure>
+        <div class="parts">
+          <article class="part">
+            <span class="num">1</span>
+            <div>
+              <h3>Tuning pegs</h3>
+              <p>Turn these to make each string the right pitch.</p>
+            </div>
+          </article>
+          <article class="part">
+            <span class="num">2</span>
+            <div>
+              <h3>Nut</h3>
+              <p>A small bar that keeps the strings in their lanes.</p>
+            </div>
+          </article>
+          <article class="part">
+            <span class="num">3</span>
+            <div>
+              <h3>Frets</h3>
+              <p>Metal strips. Press behind one to change the note.</p>
+            </div>
+          </article>
+          <article class="part">
+            <span class="num">4</span>
+            <div>
+              <h3>Fret markers</h3>
+              <p>Dots that help you find your place on the neck.</p>
+            </div>
+          </article>
+          <article class="part">
+            <span class="num">5</span>
+            <div>
+              <h3>Sound hole</h3>
+              <p>The opening where the guitar’s voice comes out.</p>
+            </div>
+          </article>
+          <article class="part">
+            <span class="num">6</span>
+            <div>
+              <h3>Pick guard</h3>
+              <p>Protects the wood from picks and stray strums.</p>
+            </div>
+          </article>
+          <article class="part">
+            <span class="num">7</span>
+            <div>
+              <h3>Saddle</h3>
+              <p>A thin strip that lifts the strings on the bridge.</p>
+            </div>
+          </article>
+          <article class="part">
+            <span class="num">8</span>
+            <div>
+              <h3>Bridge</h3>
+              <p>Anchors the strings to the body of the guitar.</p>
+            </div>
+          </article>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="foot foot-terra">
+        <p class="kicker">Rhythm Roots</p>
+        <p class="quote">Plant the roots. <em>Find the rhythm.</em></p>
+      </div>
+      <div class="foot foot-forest">
+        <p class="url">rhythmroots.studio</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
