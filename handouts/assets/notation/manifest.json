@@ -1,0 +1,65 @@
+{
+  "source": "Bravura (SMuFL)",
+  "license": "OFL \u2014 https://github.com/steinbergmedia/bravura",
+  "cardViewBox": "0 0 80 56",
+  "glyphs": {
+    "whole-note": {
+      "smufl": "U+E1D2",
+      "file": "whole-note.path.svg",
+      "dFile": "whole-note.d.txt",
+      "viewBox": "0 0 80 56"
+    },
+    "half-note": {
+      "smufl": "U+E1D3",
+      "file": "half-note.path.svg",
+      "dFile": "half-note.d.txt",
+      "viewBox": "0 0 80 56"
+    },
+    "quarter-note": {
+      "smufl": "U+E1D5",
+      "file": "quarter-note.path.svg",
+      "dFile": "quarter-note.d.txt",
+      "viewBox": "0 0 80 56"
+    },
+    "eighth-note": {
+      "smufl": "U+E1D7",
+      "file": "eighth-note.path.svg",
+      "dFile": "eighth-note.d.txt",
+      "viewBox": "0 0 80 56"
+    },
+    "quarter-rest": {
+      "smufl": "U+E4E5",
+      "file": "quarter-rest.path.svg",
+      "dFile": "quarter-rest.d.txt",
+      "viewBox": "0 0 80 56"
+    },
+    "treble-clef-staff-kids": {
+      "smufl": "U+E050",
+      "dFile": "treble-clef-staff-kids.d.txt",
+      "note": "Pre-positioned for staff G-line y=78, left\u224824, staffSpace=14"
+    },
+    "treble-clef-staff-adult": {
+      "smufl": "U+E050",
+      "dFile": "treble-clef-staff-adult.d.txt",
+      "note": "Pre-positioned for staff G-line y=82, left\u224822, staffSpace=14"
+    },
+    "notehead-black": {
+      "smufl": "U+E0A4",
+      "file": "notehead-black.path.svg",
+      "dFile": "notehead-black.d.txt",
+      "note": "Centered at (0,0); 1 staff-space tall at staffSpace=14"
+    },
+    "notehead-half": {
+      "smufl": "U+E0A3",
+      "file": "notehead-half.path.svg",
+      "dFile": "notehead-half.d.txt",
+      "note": "Centered at (0,0); 1 staff-space tall at staffSpace=14"
+    },
+    "accidental-sharp": {
+      "smufl": "U+E262",
+      "file": "accidental-sharp.path.svg",
+      "dFile": "accidental-sharp.d.txt",
+      "note": "Centered at (0,0); place left of notehead (~1.1\u20131.4 staff spaces)"
+    }
+  }
+}

@@ -1,0 +1,299 @@
+#!/usr/bin/env python3
+"""Transparent PNG cutouts + SVG wrappers for boy 2 (music tee) poses."""
+from __future__ import annotations
+
+from collections import deque
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+
+SRC = Path(__file__).resolve().parent
+DST = Path("/Users/crawfordjpaul/Local Sites/rr-website/src/lib/assets/characters/boy 2")
+POSES = ["idle", "wave", "pencil", "point", "guitar"]
+CREAM = np.array([255.0, 241.0, 220.0])
+
+
+def dilate(mask: np.ndarray, n: int = 2) -> np.ndarray:
+    m = mask.copy()
+    for _ in range(n):
+        nxt = m.copy()
+        nxt[1:] |= m[:-1]
+        nxt[:-1] |= m[1:]
+        nxt[:, 1:] |= m[:, :-1]
+        nxt[:, :-1] |= m[:, 1:]
+        m = nxt
+    return m
+
+
+def remove_background(im: Image.Image, pose: str) -> Image.Image:
+    arr = np.array(im.convert("RGBA"))
+    h, w = arr.shape[:2]
+    rgb = arr[:, :, :3].astype(np.float64)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    dist = np.sqrt(((rgb - CREAM) ** 2).sum(axis=2))
+    mx = rgb.max(axis=2)
+    chroma = mx - rgb.min(axis=2)
+    warm = r - b
+    rg = r - g
+    yy = np.arange(h)[:, None]
+    xx = np.arange(w)[None, :]
+
+    is_blue = (b > r + 5) & (b > 40) & (chroma > 12)
+    is_dark = mx < 95
+    is_wood = (r > 120) & (g > 75) & (b < 140) & (warm > 25) & (chroma > 25) & (g < 200)
+    is_pencil_yellow = (r > 180) & (g > 140) & (b < 100) & (warm > 40)
+
+    # Music-note whites on the tee live inside/near blue fabric
+    near_shirt = dilate(is_blue & (yy > int(h * 0.22)) & (yy < int(h * 0.62)), 10)
+    is_shirt_white = (
+        near_shirt
+        & (mx > 200)
+        & (chroma < 55)
+        & (warm < 35)
+        & (dist > 18)  # not cream bg
+    )
+
+    near_shoe = dilate(is_dark & (yy > int(h * 0.72)), 14) & (yy > int(h * 0.68))
+    near_face_dark = dilate(is_dark & (yy < int(h * 0.45)), 8) & (yy < int(h * 0.48))
+    is_cool_white = (
+        (mx > 215)
+        & (chroma < 45)
+        & (warm < 22)
+        & (rg < 12)
+        & (b > 200)
+        & (near_shoe | near_face_dark)
+        & (dist > 25)
+    )
+
+    if pose == "pencil":
+        is_ink = (
+            (mx < 80)
+            & (yy > int(h * 0.38))
+            & (yy < int(h * 0.68))
+            & (xx > int(w * 0.28))
+            & (xx < int(w * 0.72))
+        )
+        near_ink = dilate(is_ink, 5)
+        far_from_jeans = ~dilate(is_blue, 14)
+        is_notebook = (
+            near_ink
+            & far_from_jeans
+            & (yy > int(h * 0.38))
+            & (yy < int(h * 0.68))
+            & (mx > 200)
+            & (chroma < 65)
+            & (warm > 5)
+        )
+    else:
+        is_notebook = np.zeros((h, w), dtype=bool)
+
+    # More arm skin exposed with short sleeves
+    near_blue = dilate(is_blue, 8)
+    is_skin = (
+        (near_blue | (yy < int(h * 0.55)))
+        & (yy < int(h * 0.92))
+        & (dist > 45)
+        & (r > 70)
+        & (r < 200)
+        & (g > 40)
+        & (g < 150)
+        & (b > 25)
+        & (b < 130)
+        & (warm > 15)
+        & (chroma > 20)
+        & (chroma < 130)
+        & (r > g)
+        & (g > b - 10)
+    )
+
+    hard_protect = (
+        is_blue
+        | is_dark
+        | is_wood
+        | is_skin
+        | is_cool_white
+        | is_shirt_white
+        | is_notebook
+        | is_pencil_yellow
+    )
+
+    is_bg_candidate = (
+        ~hard_protect
+        & (mx > 175)
+        & (chroma < 85)
+        & (warm > 5)
+        & (warm < 60)
+        & ((dist < 75) | ((r > 215) & (g > 195) & (b > 170)))
+    )
+
+    visited = np.zeros((h, w), dtype=bool)
+    q: deque[tuple[int, int]] = deque()
+
+    def try_add(x: int, y: int) -> None:
+        if 0 <= x < w and 0 <= y < h and not visited[y, x] and is_bg_candidate[y, x]:
+            visited[y, x] = True
+            q.append((x, y))
+
+    for x in range(w):
+        try_add(x, 0)
+        try_add(x, h - 1)
+    for y in range(h):
+        try_add(0, y)
+        try_add(w - 1, y)
+    while q:
+        x, y = q.popleft()
+        try_add(x - 1, y)
+        try_add(x + 1, y)
+        try_add(x, y - 1)
+        try_add(x, y + 1)
+
+    blueish = is_blue | ((b > 60) & (b > r) & (chroma > 10))
+    force_pale = ~hard_protect & (warm > 5) & (mx > 185) & (chroma < 78)
+    for y in range(int(h * 0.35), int(h * 0.80)):
+        xs = np.where(blueish[y])[0]
+        if len(xs) < 2:
+            continue
+        runs: list[tuple[int, int]] = []
+        start = prev = int(xs[0])
+        for x in xs[1:]:
+            x = int(x)
+            if x > prev + 2:
+                runs.append((start, prev))
+                start = x
+            prev = x
+        runs.append((start, prev))
+        if len(runs) < 2:
+            continue
+        left, right = runs[0][1] + 1, runs[-1][0] - 1
+        if right <= left:
+            continue
+        for x in range(left, right + 1):
+            if force_pale[y, x] or is_bg_candidate[y, x]:
+                visited[y, x] = True
+
+    if pose == "pencil":
+        pocket = (
+            (yy > int(h * 0.55))
+            & ~hard_protect
+            & ~is_cool_white
+            & ~is_notebook
+            & (is_bg_candidate | ((warm > 10) & (mx > 185) & (chroma < 80)))
+        )
+        visited |= pocket
+
+    pale_ground = (
+        (yy >= int(h * 0.72))
+        & ~hard_protect
+        & ~is_cool_white
+        & ~is_notebook
+        & (warm > 8)
+        & (g > 130)
+        & (r > 135)
+        & (chroma < 130)
+    )
+    grow_q: deque[tuple[int, int]] = deque()
+    ys, xs = np.where(visited & (yy >= int(h * 0.70)))
+    for y, x in zip(ys, xs):
+        for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+            if 0 <= nx < w and 0 <= ny < h and not visited[ny, nx] and pale_ground[ny, nx]:
+                visited[ny, nx] = True
+                grow_q.append((nx, ny))
+    while grow_q:
+        x, y = grow_q.popleft()
+        for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+            if 0 <= nx < w and 0 <= ny < h and not visited[ny, nx] and pale_ground[ny, nx]:
+                visited[ny, nx] = True
+                grow_q.append((nx, ny))
+
+    shoeish = is_cool_white | (is_dark & (yy > int(h * 0.70)))
+    for y in range(int(h * 0.72), h):
+        row_anchor = blueish[y] | shoeish[y]
+        runs = []
+        x = 0
+        while x < w:
+            if row_anchor[x]:
+                x0 = x
+                while x < w and row_anchor[x]:
+                    x += 1
+                runs.append((x0, x - 1))
+            else:
+                x += 1
+        if len(runs) < 2:
+            continue
+        left, right = runs[0][1] + 1, runs[-1][0] - 1
+        if right <= left:
+            continue
+        for x in range(left, right + 1):
+            if pale_ground[y, x] or (force_pale[y, x] and not is_cool_white[y, x]):
+                visited[y, x] = True
+
+    char = hard_protect
+    for x in range(w):
+        ys_c = np.where(char[:, x])[0]
+        if len(ys_c) == 0:
+            continue
+        bottom = int(ys_c.max())
+        for y in range(bottom + 1, h):
+            if (pale_ground[y, x] or is_bg_candidate[y, x]) and not is_cool_white[y, x]:
+                visited[y, x] = True
+
+    grow = visited.copy()
+    for _ in range(3):
+        nxt = grow.copy()
+        nxt[1:] |= grow[:-1]
+        nxt[:-1] |= grow[1:]
+        nxt[:, 1:] |= grow[:, :-1]
+        nxt[:, :-1] |= grow[:, 1:]
+        grow = nxt
+    fringe = (
+        grow
+        & ~visited
+        & ~hard_protect
+        & ~is_cool_white
+        & ~is_notebook
+        & (warm > 5)
+        & (mx > 175)
+        & (chroma < 75)
+        & ((dist < 90) | ((r > 195) & (g > 180)))
+    )
+
+    alpha = np.full((h, w), 255, dtype=np.uint8)
+    alpha[visited] = 0
+    strength = np.clip((55 - dist) / 55.0, 0, 1)
+    alpha[fringe] = (255 * (1 - np.maximum(strength[fringe], 0.8))).astype(np.uint8)
+
+    out = arr.copy()
+    out[:, :, 3] = alpha
+    return Image.fromarray(out)
+
+
+def crop_alpha(im: Image.Image, pad: int = 2) -> Image.Image:
+    bbox = im.getbbox()
+    if not bbox:
+        return im
+    l, t, r, b = bbox
+    return im.crop(
+        (max(0, l - pad), max(0, t - pad), min(im.width, r + pad), min(im.height, b + pad))
+    )
+
+
+def main() -> None:
+    DST.mkdir(parents=True, exist_ok=True)
+    for name in POSES:
+        cut = crop_alpha(remove_background(Image.open(SRC / f"{name}.png"), name))
+        cut.save(DST / f"{name}.png", optimize=True)
+        ww, hh = cut.size
+        (DST / f"{name}.svg").write_text(
+            f"""<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {ww} {hh}" width="{ww}" height="{hh}">
+  <title>Rhythm Roots boy 2 — {name}</title>
+  <image width="{ww}" height="{hh}" href="{name}.png" xlink:href="{name}.png" preserveAspectRatio="xMidYMid meet"/>
+</svg>
+"""
+        )
+        print(name, cut.size)
+
+
+if __name__ == "__main__":
+    main()

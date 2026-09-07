@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Rhythm & Counting — Rhythm Roots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+
+  :root {
+    --forest: #0d2b2a;
+    --sage: #5b7869;
+    --sage-mist: #b5c4b1;
+    --terracotta: #c45644;
+    --ochre: #c1994f;
+    --blush: #e9b3a7;
+    --sand: #f3efe6;
+    --paper: #faf7f1;
+    --ink: #122424;
+    --display: "Fraunces", ui-serif, Georgia, serif;
+    --sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: letter portrait; margin: 0; }
+
+  html, body {
+    width: 8.5in;
+    height: 11in;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    position: relative;
+    width: 8.5in;
+    height: 11in;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 95% 75% at 0% 40%, color-mix(in oklab, var(--sage-mist) 36%, transparent) 0%, transparent 58%),
+      radial-gradient(ellipse 70% 55% at 100% 62%, color-mix(in oklab, var(--blush) 30%, transparent) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 40% at 52% 38%, color-mix(in oklab, var(--ochre) 14%, transparent) 0%, transparent 62%),
+      var(--paper);
+    padding: 0.28in 0.34in 0.22in;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header, .hero, footer { position: relative; z-index: 2; flex: 0 0 auto; }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo { height: 0.5in; width: auto; display: block; }
+
+  .hero { margin: 0.08in 0 0.09in; }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.035in;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--forest);
+  }
+
+  .lede {
+    margin-top: 0.05in;
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: color-mix(in oklab, var(--ink) 78%, white);
+    max-width: 6.6in;
+  }
+
+  .defs {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.09in;
+    flex: 0 0 auto;
+  }
+
+  .def {
+    background: color-mix(in oklab, var(--sand) 80%, white);
+    border-radius: 14px;
+    padding: 0.1in 0.12in 0.11in;
+  }
+
+  .def .kicker {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+
+  .def h2 {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--forest);
+    margin: 0.025in 0 0.035in;
+    letter-spacing: -0.02em;
+  }
+
+  .def p {
+    font-size: 11px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--ink) 74%, white);
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    margin-top: 0.1in;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2.15in;
+    gap: 0.1in;
+    flex: 1 1 auto;
+    min-height: 0;
+    align-items: start;
+  }
+
+  .main-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.09in;
+    min-height: 0;
+  }
+
+  .panel {
+    background: color-mix(in oklab, var(--sand) 55%, white);
+    border-radius: 14px;
+    padding: 0.1in 0.12in 0.1in;
+  }
+
+  .panel-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.05in;
+  }
+
+  .staff-panel { flex: 0 0 auto; display: flex; flex-direction: column; gap: 0.08in; }
+
+  .staff-art {
+    width: 100%;
+    height: auto;
+    max-height: 1.55in;
+    display: block;
+  }
+
+  .staff-caption {
+    font-size: 11px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--ink) 74%, white);
+  }
+
+  .time-box {
+    background: var(--forest);
+    color: var(--paper);
+    border-radius: 14px;
+    padding: 0.12in 0.13in 0.13in;
+    flex: 0 0 auto;
+  }
+
+  .time-box .panel-label { color: var(--ochre); }
+
+  .time-box h3 {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0.02in 0 0.07in;
+  }
+
+  .sig {
+    display: flex;
+    align-items: center;
+    gap: 0.12in;
+    margin-bottom: 0.08in;
+  }
+
+  .sig-num {
+    font-family: var(--display);
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+
+  .sig-num span {
+    display: block;
+    border-top: 2px solid color-mix(in oklab, var(--paper) 35%, transparent);
+    padding-top: 0.02in;
+    margin-top: 0.02in;
+  }
+
+  .sig p {
+    font-size: 11.5px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--paper) 86%, var(--sage-mist));
+  }
+
+  .time-box .bullets {
+    display: grid;
+    gap: 0.05in;
+  }
+
+  .time-box .bullets p {
+    font-size: 11px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--paper) 86%, var(--sage-mist));
+    padding-left: 0.1in;
+    border-left: 2px solid var(--ochre);
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+    gap: 0.09in;
+    min-height: 0;
+    align-self: stretch;
+  }
+
+  .mascot {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 3.4in;
+    background: color-mix(in oklab, var(--sand) 55%, white);
+    border-radius: 14px;
+    padding: 0.05in 0.05in 0.07in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mascot img {
+    flex: 1;
+    min-height: 0;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .mascot figcaption {
+    text-align: center;
+    padding: 0.03in 0.05in 0.01in;
+  }
+
+  .mascot .pair {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: -0.02em;
+  }
+
+  .mascot p {
+    margin-top: 0.015in;
+    font-size: 10.5px;
+    line-height: 1.25;
+    color: color-mix(in oklab, var(--ink) 74%, white);
+  }
+
+  .clef-box {
+    background: var(--forest);
+    color: var(--paper);
+    border-radius: 14px;
+    padding: 0.1in 0.11in 0.11in;
+    flex: 0 0 auto;
+  }
+
+  .clef-box .panel-label { color: var(--ochre); }
+
+  .clef-box h3 {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0.015in 0 0.05in;
+  }
+
+  .clef-box p {
+    font-size: 10.5px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--paper) 86%, var(--sage-mist));
+  }
+
+  .clef-row {
+    display: flex;
+    align-items: center;
+    gap: 0.08in;
+    margin-bottom: 0.06in;
+  }
+
+  .clef-row svg {
+    width: 0.48in;
+    height: 0.64in;
+    flex: 0 0 auto;
+  }
+
+  .notes-block {
+    position: relative;
+    z-index: 2;
+    margin-top: 0.1in;
+    flex: 0 0 auto;
+  }
+
+  .notes-block .panel-label { margin-bottom: 0.07in; }
+
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.08in;
+  }
+
+  .note-card {
+    background: color-mix(in oklab, var(--sand) 70%, white);
+    border-radius: 12px;
+    padding: 0.07in 0.06in 0.08in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .note-card svg {
+    width: 100%;
+    max-width: 0.95in;
+    height: 0.55in;
+  }
+
+  .note-card h3 {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--forest);
+    margin-top: 0.015in;
+    letter-spacing: -0.02em;
+  }
+
+  .note-card .beats {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-top: 0.015in;
+  }
+
+  .note-card p {
+    margin-top: 0.02in;
+    font-size: 10px;
+    line-height: 1.25;
+    color: color-mix(in oklab, var(--ink) 72%, white);
+  }
+
+  footer {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 0.1in;
+    margin-top: 0.1in;
+  }
+
+  .foot {
+    border-radius: 12px;
+    padding: 0.1in 0.16in;
+    min-height: 0.5in;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .foot-terra { background: var(--terracotta); color: var(--paper); }
+  .foot-forest { background: var(--forest); color: var(--paper); text-align: right; }
+  .foot .kicker {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .foot .quote, .foot .url {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-top: 0.025in;
+  }
+  .foot-terra em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--blush);
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <img class="logo" src="../assets/logo.png" alt="Rhythm Roots" />
+    </header>
+
+    <div class="hero">
+      <p class="eyebrow">Feel it · count it · play it</p>
+      <h1>Rhythm & Counting</h1>
+      <p class="lede">Music moves in time. Learn the steady beat, how measures group those beats, and what the notes on the staff are asking you to do.</p>
+    </div>
+
+    <div class="defs">
+      <article class="def">
+        <p class="kicker">The pulse</p>
+        <h2>Beat</h2>
+        <p>The steady tick you feel — like a heartbeat. Tap your foot and you’re already counting time.</p>
+      </article>
+      <article class="def">
+        <p class="kicker">A group of beats</p>
+        <h2>Measure</h2>
+        <p>Beats live in little boxes. Bar lines mark the walls. Each box is one measure.</p>
+      </article>
+      <article class="def">
+        <p class="kicker">Say the numbers</p>
+        <h2>Counting</h2>
+        <p>In 4/4 time, count <strong>1 · 2 · 3 · 4</strong> and start again. Beat 1 is the strongest.</p>
+      </article>
+    </div>
+
+    <div class="stage">
+      <div class="main-col">
+        <div class="panel staff-panel">
+          <p class="panel-label">One measure of 4/4 · count out loud</p>
+                              <svg class="staff-art" viewBox="0 0 640 140" role="img" aria-label="Staff with treble clef, time signature 4/4, and four quarter notes">
+            <path fill="#0d2b2a" d="M45.06 54.76C44.94 54.09 45.06 54.03 45.39 53.70C46.29 52.86 47.46 51.68 48.53 50.50C53.23 45.35 56.03 38.69 56.03 32.36C56.03 27.49 54.69 22.67 52.39 19.31C51.55 18.08 50.10 16.51 49.48 16.51C48.70 16.51 46.96 17.97 45.84 19.20C41.70 23.79 40.35 30.79 40.35 36.62C40.35 39.86 40.74 43.50 41.14 45.80C41.25 46.47 41.30 46.58 40.63 47.14C37.05 50.11 33.18 53.53 30.27 57.11C26.41 61.93 24.00 67.14 24.00 73.13C24.00 82.87 30.66 92.11 44.38 92.11C45.67 92.11 47.13 92.00 48.25 91.78C48.86 91.66 48.98 91.61 49.09 92.28C49.76 96.03 50.60 100.90 50.60 103.54C50.60 111.82 45.00 112.83 41.70 112.83C38.67 112.83 37.22 111.94 37.22 111.21C37.22 110.82 37.72 110.65 39.01 110.26C40.74 109.75 42.76 108.24 42.76 104.99C42.76 101.91 40.80 99.28 37.38 99.28C33.63 99.28 31.39 102.25 31.39 105.72C31.39 109.36 33.58 114.85 42.03 114.85C45.78 114.85 53.06 113.17 53.06 103.65C53.06 100.46 52.06 95.14 51.44 91.66C51.33 90.99 51.38 91.05 52.17 90.71C57.82 88.47 61.58 83.71 61.58 77.38C61.58 70.22 56.31 63.89 48.08 63.89C46.62 63.89 46.62 63.89 46.46 62.88ZM50.32 25.19C52.17 25.19 53.68 26.70 53.68 29.78C53.68 33.65 51.83 37.23 47.46 41.60C46.57 42.50 45.22 43.78 43.94 44.90C43.54 45.24 43.32 45.18 43.21 44.46C42.98 43.00 42.87 41.10 42.87 39.30C42.87 30.57 46.90 25.19 50.32 25.19ZM44.22 63.33C44.38 64.39 44.38 64.34 43.38 64.67C38.45 66.35 35.26 70.78 35.26 75.54C35.26 80.58 37.89 84.16 41.70 85.45C42.14 85.62 42.82 85.78 43.21 85.78C43.66 85.78 43.88 85.50 43.88 85.17C43.88 84.78 43.43 84.61 43.04 84.44C40.69 83.43 39.01 81.02 39.01 78.45C39.01 75.26 41.19 72.85 44.61 71.90C45.50 71.67 45.62 71.73 45.73 72.34L48.53 89.03C48.64 89.65 48.58 89.65 47.74 89.82C46.85 89.98 45.73 90.10 44.61 90.10C34.81 90.10 28.48 84.66 28.48 76.88C28.48 73.58 29.04 69.15 33.69 63.89C37.05 60.14 39.62 58.06 42.26 55.94C42.82 55.49 42.93 55.54 43.04 56.16ZM48.08 72.23C47.97 71.56 48.02 71.39 48.70 71.45C53.23 71.84 56.98 75.65 56.98 80.58C56.98 84.10 54.86 86.96 51.72 88.53C51.05 88.86 50.94 88.86 50.82 88.19Z"/>
+            <g fill="none" stroke="#0d2b2a" stroke-width="1.6">
+              <line x1="18" y1="36" x2="622" y2="36"/>
+              <line x1="18" y1="50" x2="622" y2="50"/>
+              <line x1="18" y1="64" x2="622" y2="64"/>
+              <line x1="18" y1="78" x2="622" y2="78"/>
+              <line x1="18" y1="92" x2="622" y2="92"/>
+              <line x1="18" y1="36" x2="18" y2="92" stroke-width="2.2"/>
+              <line x1="622" y1="36" x2="622" y2="92" stroke-width="3.2"/>
+            </g>
+            <text x="118" y="62" font-family="Fraunces, Georgia, serif" font-size="26" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+            <text x="118" y="88" font-family="Fraunces, Georgia, serif" font-size="26" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+            <g fill="#0d2b2a">
+              <ellipse cx="200" cy="78" rx="11" ry="8" transform="rotate(-18 200 78)"/>
+              <rect x="208" y="36" width="3.2" height="42"/>
+              <ellipse cx="300" cy="78" rx="11" ry="8" transform="rotate(-18 300 78)"/>
+              <rect x="308" y="36" width="3.2" height="42"/>
+              <ellipse cx="400" cy="78" rx="11" ry="8" transform="rotate(-18 400 78)"/>
+              <rect x="408" y="36" width="3.2" height="42"/>
+              <ellipse cx="500" cy="78" rx="11" ry="8" transform="rotate(-18 500 78)"/>
+              <rect x="508" y="36" width="3.2" height="42"/>
+            </g>
+            <g font-family="Outfit, sans-serif" font-size="13" font-weight="700" fill="#c45644" text-anchor="middle">
+              <text x="200" y="128">1</text>
+              <text x="300" y="128">2</text>
+              <text x="400" y="128">3</text>
+              <text x="500" y="128">4</text>
+            </g>
+          </svg>
+          <p class="staff-caption">The <strong>treble clef</strong> curls around the second line from the bottom — that’s G. The <strong>4/4</strong> means four quarter-note beats in every measure.</p>
+        </div>
+
+        <div class="time-box">
+          <p class="panel-label">Time signature</p>
+          <h3>What 4/4 means</h3>
+          <div class="sig">
+            <div class="sig-num">4<span>4</span></div>
+            <p><strong>Top number</strong> — how many beats in each measure.<br /><strong>Bottom number</strong> — which note gets one beat (4 = quarter note).</p>
+          </div>
+          <div class="bullets">
+            <p>Common time (𝔠) is another way to write 4/4.</p>
+            <p>Bar lines close each measure. A double bar often ends a section.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="aside">
+        <figure class="mascot">
+          <img src="../characters/boy/boy1-tshirt-point-left.png" alt="Boy pointing toward the rhythm lesson" />
+          <figcaption>
+            <p class="pair">Point &amp; count</p>
+            <p>Tap each number as you say it.</p>
+          </figcaption>
+        </figure>
+        <div class="clef-box">
+          <p class="panel-label">Staff secrets</p>
+          <div class="clef-row">
+                        <svg viewBox="0 0 48 64" aria-hidden="true">
+              <path fill="#faf7f1" d="M14.53 26.38C14.47 26.04 14.53 26.02 14.70 25.85C15.14 25.43 15.73 24.84 16.26 24.25C18.62 21.68 20.02 18.34 20.02 15.18C20.02 12.74 19.34 10.34 18.20 8.66C17.78 8.04 17.05 7.26 16.74 7.26C16.35 7.26 15.48 7.98 14.92 8.60C12.85 10.90 12.18 14.40 12.18 17.31C12.18 18.93 12.37 20.75 12.57 21.90C12.62 22.24 12.65 22.29 12.32 22.57C10.52 24.06 8.59 25.76 7.14 27.56C5.20 29.96 4.00 32.57 4.00 35.56C4.00 40.44 7.33 45.06 14.19 45.06C14.84 45.06 15.56 45.00 16.12 44.89C16.43 44.83 16.49 44.80 16.54 45.14C16.88 47.02 17.30 49.45 17.30 50.77C17.30 54.91 14.50 55.42 12.85 55.42C11.34 55.42 10.61 54.97 10.61 54.60C10.61 54.41 10.86 54.32 11.50 54.13C12.37 53.88 13.38 53.12 13.38 51.50C13.38 49.96 12.40 48.64 10.69 48.64C8.82 48.64 7.70 50.12 7.70 51.86C7.70 53.68 8.79 56.42 13.02 56.42C14.89 56.42 18.53 55.58 18.53 50.82C18.53 49.23 18.03 46.57 17.72 44.83C17.66 44.50 17.69 44.52 18.08 44.36C20.91 43.24 22.79 40.86 22.79 37.69C22.79 34.11 20.16 30.94 16.04 30.94C15.31 30.94 15.31 30.94 15.23 30.44ZM17.16 11.60C18.08 11.60 18.84 12.35 18.84 13.89C18.84 15.82 17.92 17.62 15.73 19.80C15.28 20.25 14.61 20.89 13.97 21.45C13.77 21.62 13.66 21.59 13.60 21.23C13.49 20.50 13.44 19.55 13.44 18.65C13.44 14.28 15.45 11.60 17.16 11.60ZM14.11 30.66C14.19 31.20 14.19 31.17 13.69 31.34C11.22 32.18 9.63 34.39 9.63 36.77C9.63 39.29 10.94 41.08 12.85 41.72C13.07 41.81 13.41 41.89 13.60 41.89C13.83 41.89 13.94 41.75 13.94 41.58C13.94 41.39 13.72 41.30 13.52 41.22C12.34 40.72 11.50 39.51 11.50 38.22C11.50 36.63 12.60 35.42 14.30 34.95C14.75 34.84 14.81 34.86 14.86 35.17L16.26 43.52C16.32 43.82 16.29 43.82 15.87 43.91C15.42 43.99 14.86 44.05 14.30 44.05C9.40 44.05 6.24 41.33 6.24 37.44C6.24 35.79 6.52 33.58 8.84 30.94C10.52 29.07 11.81 28.03 13.13 26.97C13.41 26.74 13.46 26.77 13.52 27.08ZM16.04 35.12C15.98 34.78 16.01 34.70 16.35 34.72C18.62 34.92 20.49 36.82 20.49 39.29C20.49 41.05 19.43 42.48 17.86 43.26C17.52 43.43 17.47 43.43 17.41 43.10Z"/>
+            </svg>
+            <div>
+              <h3>Treble clef</h3>
+              <p>Also called the G clef. It tells you which notes live where on the five lines.</p>
+            </div>
+          </div>
+          <p><strong>Bar line</strong> = end of a measure. <strong>Rest</strong> = silence for that many beats. Quiet counts too!</p>
+        </div>
+      </div>
+    </div>
+
+        <div class="notes-block">
+      <p class="panel-label">Note values · how long each shape lasts in 4/4</p>
+      <div class="notes-grid" aria-label="Note values">
+        <article class="note-card">
+          <svg viewBox="0 0 80 56" aria-hidden="true">
+            <path fill="#0d2b2a" d="M40.36 21.00C30.80 21.00 24.87 25.02 24.87 29.90C24.87 34.71 28.96 39.00 39.64 39.00C51.37 39.00 55.13 34.91 55.13 29.90C55.13 24.82 47.02 21.00 40.36 21.00ZM32.85 25.48C33.64 23.04 36.27 22.65 38.52 22.65C43.40 22.65 47.35 27.92 47.35 32.27C47.35 32.74 47.29 33.20 47.22 33.59C46.89 35.37 45.84 36.63 44.05 37.09C43.33 37.29 42.60 37.35 41.88 37.35C41.22 37.35 40.63 37.29 39.97 37.09C38.78 36.69 37.59 36.03 36.60 35.18C36.08 34.71 35.55 34.19 35.09 33.59C33.70 31.95 32.58 29.51 32.58 27.26C32.58 26.67 32.65 26.08 32.85 25.48Z"/>
+          </svg>
+          <h3>Whole</h3>
+          <p class="beats">4 beats</p>
+          <p>Hold for the whole measure.</p>
+        </article>
+        <article class="note-card">
+          <svg viewBox="0 0 80 56" aria-hidden="true">
+            <path fill="#0d2b2a" d="M37.59 49.00C45.41 49.00 47.02 42.66 47.02 41.05V7.00H45.79V38.17C44.96 37.47 43.77 37.06 42.33 37.06C35.20 37.06 32.98 42.58 32.98 45.05C32.98 47.56 35.00 49.00 37.59 49.00ZM38.70 40.89C41.05 39.53 42.53 39.04 43.52 39.04C44.43 39.04 44.92 39.45 45.25 40.02C45.41 40.31 45.54 40.60 45.54 40.93C45.54 41.88 44.55 43.03 41.21 45.21C39.07 46.65 37.59 47.15 36.56 47.15C35.57 47.15 35.00 46.65 34.67 46.08C34.50 45.79 34.38 45.46 34.38 45.13C34.38 44.10 35.41 42.78 38.70 40.89Z"/>
+          </svg>
+          <h3>Half</h3>
+          <p class="beats">2 beats</p>
+          <p>Open note head + stem.</p>
+        </article>
+        <article class="note-card">
+          <svg viewBox="0 0 80 56" aria-hidden="true">
+            <path fill="#0d2b2a" d="M45.62 38.42C44.84 37.71 43.68 37.34 42.31 37.34C37.23 37.34 33.14 41.10 33.14 45.11C33.14 47.55 35.12 49.00 37.64 49.00C41.78 49.00 46.86 45.16 46.86 41.23V7.00H45.62Z"/>
+          </svg>
+          <h3>Quarter</h3>
+          <p class="beats">1 beat</p>
+          <p>Filled note head + stem.</p>
+        </article>
+        <article class="note-card">
+          <svg viewBox="0 0 80 56" aria-hidden="true">
+            <path fill="#0d2b2a" d="M46.98 18.59C44.86 15.31 43.12 11.90 42.45 7.91C42.33 7.25 41.99 7.00 41.20 7.00C41.00 7.00 40.83 7.08 40.79 7.37V38.36C40.00 37.66 38.84 37.28 37.47 37.28C32.36 37.28 28.24 41.07 28.24 45.09C28.24 47.55 30.24 49.00 32.77 49.00C36.93 49.00 42.04 45.14 42.04 41.19V17.88C44.61 19.46 47.69 24.03 48.97 27.07C49.60 28.48 49.97 30.85 49.97 33.30C49.97 35.17 49.68 37.12 48.97 38.99C48.89 39.24 48.85 39.45 48.85 39.61C48.85 40.28 49.26 40.65 49.51 40.82L49.60 40.86C49.97 40.90 50.47 40.73 50.68 40.03C50.68 40.03 51.76 36.08 51.76 32.84C51.76 27.65 49.60 22.74 46.98 18.59Z"/>
+          </svg>
+          <h3>Eighth</h3>
+          <p class="beats">½ beat</p>
+          <p>Add a flag — or beam two.</p>
+        </article>
+        <article class="note-card">
+          <svg viewBox="0 0 80 56" aria-hidden="true">
+            <path fill="#0d2b2a" d="M37.23 29.78C38.00 30.74 38.68 31.66 39.30 32.67C39.40 32.86 39.59 33.25 39.59 33.34C39.59 33.39 39.59 33.49 39.54 33.53C39.45 33.73 39.25 33.78 39.01 33.78C38.82 33.78 38.44 33.68 38.24 33.63C38.00 33.63 37.71 33.49 37.47 33.49C35.40 33.49 33.53 35.56 33.53 38.11C33.53 40.51 35.60 42.87 39.11 45.57C39.49 45.86 39.98 46.00 40.36 46.00C40.70 46.00 41.03 45.90 41.08 45.71C41.13 45.57 41.18 45.47 41.18 45.37C41.18 44.94 40.79 44.56 40.41 44.22C39.78 44.22 39.25 42.92 39.16 42.49C39.01 42.10 38.97 41.67 38.97 41.24C38.97 39.74 39.69 38.06 41.23 37.77C41.47 37.72 41.71 37.72 42.00 37.72C43.39 37.72 44.98 38.25 45.75 38.54C45.80 38.54 45.85 38.59 45.90 38.59C46.04 38.64 46.14 38.64 46.23 38.64C46.38 38.64 46.47 38.59 46.47 38.44C46.47 37.87 45.22 36.28 44.69 35.70C42.86 33.49 41.37 31.71 41.37 29.01C41.37 28.82 41.42 28.58 41.42 28.39C41.61 25.59 43.34 23.28 44.60 21.31C44.74 21.07 44.79 20.83 44.79 20.59C44.79 20.11 44.60 19.67 44.60 19.67C44.60 19.67 37.47 11.20 36.66 10.39C36.41 10.14 36.08 10.00 35.79 10.00C35.31 10.00 34.83 10.34 34.83 11.01C34.83 11.25 34.87 11.49 35.02 11.78C35.21 12.31 37.95 14.76 37.95 18.23C37.95 20.01 37.23 22.08 35.07 24.34C34.59 24.82 34.39 25.35 34.39 25.74C34.39 26.41 34.87 26.89 34.87 26.89Z"/>
+          </svg>
+          <h3>Rest</h3>
+          <p class="beats">1 beat silent</p>
+          <p>Quiet still counts!</p>
+        </article>
+      </div>
+    </div>
+
+    <footer>
+      <div class="foot foot-terra">
+        <p class="kicker">Rhythm Roots</p>
+        <p class="quote">Plant the roots. <em>Find the rhythm.</em></p>
+      </div>
+      <div class="foot foot-forest">
+        <p class="url">rhythmroots.studio</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

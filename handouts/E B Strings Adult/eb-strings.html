@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>E &amp; B Strings — First Position — Rhythm Roots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --forest: #0d2b2a;
+    --sage: #5b7869;
+    --sage-mist: #b5c4b1;
+    --terracotta: #c45644;
+    --ochre: #c1994f;
+    --blush: #e9b3a7;
+    --sand: #f3efe6;
+    --paper: #faf7f1;
+    --ink: #122424;
+    --display: "Fraunces", ui-serif, Georgia, serif;
+    --sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: letter portrait; margin: 0; }
+
+  html, body {
+    width: 8.5in;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    position: relative;
+    width: 8.5in;
+    height: 11in;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 95% 75% at 0% 40%, color-mix(in oklab, var(--sage-mist) 36%, transparent) 0%, transparent 58%),
+      radial-gradient(ellipse 70% 55% at 100% 62%, color-mix(in oklab, var(--blush) 30%, transparent) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 40% at 52% 38%, color-mix(in oklab, var(--ochre) 14%, transparent) 0%, transparent 62%),
+      var(--paper);
+    padding: 0.3in 0.36in 0.24in;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+    break-after: page;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  header, .hero, footer { position: relative; z-index: 2; flex: 0 0 auto; }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo { height: 0.52in; width: auto; display: block; }
+
+  .page-mark {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  .hero { margin: 0.1in 0 0.1in; }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.04in;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--forest);
+  }
+
+  .lede {
+    margin-top: 0.05in;
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: color-mix(in oklab, var(--ink) 72%, white);
+    max-width: 6.8in;
+  }
+
+  .defs {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.1in;
+    flex: 0 0 auto;
+  }
+
+  .def {
+    background: color-mix(in oklab, var(--sand) 80%, white);
+    border-radius: 14px;
+    padding: 0.1in 0.12in 0.11in;
+  }
+
+  .def .kicker {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  .def h2 {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--forest);
+    margin: 0.03in 0 0.03in;
+    letter-spacing: -0.02em;
+  }
+
+  .def p {
+    font-size: 11px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--ink) 70%, white);
+  }
+
+  .maps {
+    position: relative;
+    z-index: 2;
+    margin-top: 0.11in;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.11in;
+    flex: 0 0 auto;
+  }
+
+  .map {
+    background: color-mix(in oklab, var(--sand) 55%, white);
+    border-radius: 14px;
+    padding: 0.1in 0.12in 0.11in;
+  }
+
+  .panel-label {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.05in;
+  }
+
+  .map h3 {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--forest);
+    margin: 0 0 0.06in;
+    letter-spacing: -0.02em;
+  }
+
+  .fret-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.05in;
+  }
+
+  .fret {
+    background: color-mix(in oklab, var(--paper) 70%, white);
+    border-radius: 10px;
+    text-align: center;
+    padding: 0.08in 0.04in 0.07in;
+  }
+  .fret.open { background: var(--forest); color: var(--paper); }
+  .fret .note {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .fret .meta {
+    margin-top: 0.03in;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .fret.open .meta { color: var(--ochre); opacity: 1; }
+  .fret .note { font-size: 17px; }
+  .fret.sharp {
+    background: color-mix(in oklab, var(--ochre) 22%, white);
+  }
+
+
+  .map .hint {
+    margin-top: 0.07in;
+    font-size: 10.5px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--ink) 70%, white);
+  }
+
+  .staff-block {
+    position: relative;
+    z-index: 2;
+    margin-top: 0.11in;
+    background: color-mix(in oklab, var(--sand) 55%, white);
+    border-radius: 14px;
+    padding: 0.1in 0.12in 0.1in;
+    flex: 0 0 auto;
+  }
+
+  .staff-art {
+    width: 100%;
+    height: auto;
+    min-height: 2.15in;
+    display: block;
+  }
+  .staff-block .staff-art { min-height: 2.35in; }
+
+  .tip-row {
+    position: relative;
+    z-index: 2;
+    margin-top: 0.11in;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 0.1in;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .tip {
+    border-radius: 14px;
+    padding: 0.11in 0.13in;
+  }
+  .tip-a { background: color-mix(in oklab, var(--blush) 38%, white); }
+  .tip-b { background: color-mix(in oklab, var(--sage-mist) 45%, white); }
+  .tip-c { background: color-mix(in oklab, var(--ochre) 28%, white); }
+
+  .tip .kicker {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .tip h3 {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--forest);
+    margin: 0.03in 0 0.04in;
+    letter-spacing: -0.02em;
+  }
+  .tip p {
+    font-size: 11px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--ink) 74%, white);
+  }
+
+  footer {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 0.12in;
+    margin-top: auto;
+    padding-top: 0.12in;
+  }
+
+  .foot {
+    border-radius: 14px;
+    padding: 0.11in 0.18in;
+    min-height: 0.52in;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .foot-terra { background: var(--terracotta); color: var(--paper); }
+  .foot-forest { background: var(--forest); color: var(--paper); text-align: right; }
+  .foot .kicker {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .foot .quote, .foot .url {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-top: 0.025in;
+  }
+  .foot-terra em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--blush);
+  }
+
+  /* —— Page 2 —— */
+  .songs {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1in;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .song {
+    background: color-mix(in oklab, var(--sand) 55%, white);
+    border-radius: 14px;
+    padding: 0.09in 0.12in 0.1in;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .song-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.12in;
+    margin-bottom: 0.04in;
+  }
+
+  .song-head h2 {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: -0.02em;
+  }
+
+  .song-head .meta {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+
+  .song p.blurb {
+    font-size: 11px;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--ink) 70%, white);
+    margin-bottom: 0.05in;
+  }
+
+  .song .staff-art { flex: 1 1 auto; max-height: 2.15in; }
+
+  .legend {
+    position: relative;
+    z-index: 2;
+    margin-top: 0.08in;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.08in;
+    flex: 0 0 auto;
+  }
+
+  .legend .chip {
+    background: color-mix(in oklab, var(--sand) 70%, white);
+    border-radius: 10px;
+    padding: 0.07in 0.1in;
+    font-size: 10.5px;
+    line-height: 1.25;
+    color: color-mix(in oklab, var(--ink) 74%, white);
+  }
+  .legend strong { color: var(--forest); }
+</style>
+</head>
+<body>
+
+  <!-- ===================== PAGE 1 ===================== -->
+  <div class="page">
+    <header>
+      <img class="logo" src="../assets/logo.png" alt="Rhythm Roots" />
+      <p class="page-mark">Page 1 · Map</p>
+    </header>
+
+    <div class="hero">
+      <p class="eyebrow">First position · top two strings</p>
+      <h1>E &amp; B String Notes</h1>
+      <p class="lede">Learn every first-position note on the high E (1st) and B (2nd) strings — naturals and sharps — then read them on the treble staff.</p>
+    </div>
+
+    <div class="defs">
+      <article class="def">
+        <p class="kicker">Where</p>
+        <h2>First position</h2>
+        <p>Index finger covers fret 1. Open strings count too. Stay near the nut — no shifting yet.</p>
+      </article>
+      <article class="def">
+        <p class="kicker">Which strings</p>
+        <h2>E &amp; B</h2>
+        <p>Thinnest string is high E (1). Next is B (2). These two sit side by side for melody work.</p>
+      </article>
+      <article class="def">
+        <p class="kicker">Full position</p>
+        <h2>Ten notes</h2>
+        <p>Naturals plus sharps (♯) on frets 0–4. A sharp raises the pitch one fret / half step.</p>
+      </article>
+    </div>
+
+    <div class="maps">
+      <section class="map">
+        <p class="panel-label">2nd string · B</p>
+        <h3>B string map</h3>
+                <div class="fret-row" aria-label="B string frets">
+          <div class="fret open">
+            <div class="note">B</div>
+            <div class="meta">Open · 0</div>
+          </div>
+          <div class="fret">
+            <div class="note">C</div>
+            <div class="meta">Fret 1 · ①</div>
+          </div>
+          <div class="fret sharp">
+            <div class="note">C♯</div>
+            <div class="meta">Fret 2 · ②</div>
+          </div>
+          <div class="fret">
+            <div class="note">D</div>
+            <div class="meta">Fret 3 · ③</div>
+          </div>
+          <div class="fret sharp">
+            <div class="note">D♯</div>
+            <div class="meta">Fret 4 · ④</div>
+          </div>
+        </div>
+        <p class="hint">One finger per fret: 1→fret 1, 2→fret 2, 3→fret 3, 4→fret 4.</p>
+      </section>
+      <section class="map">
+        <p class="panel-label">1st string · high E</p>
+        <h3>E string map</h3>
+                <div class="fret-row" aria-label="E string frets">
+          <div class="fret open">
+            <div class="note">E</div>
+            <div class="meta">Open · 0</div>
+          </div>
+          <div class="fret">
+            <div class="note">F</div>
+            <div class="meta">Fret 1 · ①</div>
+          </div>
+          <div class="fret sharp">
+            <div class="note">F♯</div>
+            <div class="meta">Fret 2 · ②</div>
+          </div>
+          <div class="fret">
+            <div class="note">G</div>
+            <div class="meta">Fret 3 · ③</div>
+          </div>
+          <div class="fret sharp">
+            <div class="note">G♯</div>
+            <div class="meta">Fret 4 · ④</div>
+          </div>
+        </div>
+        <p class="hint">Same fingering pattern as the B string — one string higher, same fret logic.</p>
+      </section>
+    </div>
+
+    <div class="staff-block">
+      <p class="panel-label">Treble staff · first position on E &amp; B (naturals + sharps)</p>
+      <svg class="staff-art" viewBox="0 -55 780 225" role="img" aria-label="Staff showing B C C-sharp D D-sharp E F F-sharp G G-sharp with fret labels">
+        <!-- clef under lines -->
+        <path fill="#0d2b2a" d="M43.06 58.76C42.94 58.09 43.06 58.03 43.39 57.70C44.29 56.86 45.46 55.68 46.53 54.50C51.23 49.35 54.03 42.69 54.03 36.36C54.03 31.49 52.69 26.67 50.39 23.31C49.55 22.08 48.10 20.51 47.48 20.51C46.70 20.51 44.96 21.97 43.84 23.20C39.70 27.79 38.35 34.79 38.35 40.62C38.35 43.86 38.74 47.50 39.14 49.80C39.25 50.47 39.30 50.58 38.63 51.14C35.05 54.11 31.18 57.53 28.27 61.11C24.41 65.93 22.00 71.14 22.00 77.13C22.00 86.87 28.66 96.11 42.38 96.11C43.67 96.11 45.13 96.00 46.25 95.78C46.86 95.66 46.98 95.61 47.09 96.28C47.76 100.03 48.60 104.90 48.60 107.54C48.60 115.82 43.00 116.83 39.70 116.83C36.67 116.83 35.22 115.94 35.22 115.21C35.22 114.82 35.72 114.65 37.01 114.26C38.74 113.75 40.76 112.24 40.76 108.99C40.76 105.91 38.80 103.28 35.38 103.28C31.63 103.28 29.39 106.25 29.39 109.72C29.39 113.36 31.58 118.85 40.03 118.85C43.78 118.85 51.06 117.17 51.06 107.65C51.06 104.46 50.06 99.14 49.44 95.66C49.33 94.99 49.38 95.05 50.17 94.71C55.82 92.47 59.58 87.71 59.58 81.38C59.58 74.22 54.31 67.89 46.08 67.89C44.62 67.89 44.62 67.89 44.46 66.88ZM48.32 29.19C50.17 29.19 51.68 30.70 51.68 33.78C51.68 37.65 49.83 41.23 45.46 45.60C44.57 46.50 43.22 47.78 41.94 48.90C41.54 49.24 41.32 49.18 41.21 48.46C40.98 47.00 40.87 45.10 40.87 43.30C40.87 34.57 44.90 29.19 48.32 29.19ZM42.22 67.33C42.38 68.39 42.38 68.34 41.38 68.67C36.45 70.35 33.26 74.78 33.26 79.54C33.26 84.58 35.89 88.16 39.70 89.45C40.14 89.62 40.82 89.78 41.21 89.78C41.66 89.78 41.88 89.50 41.88 89.17C41.88 88.78 41.43 88.61 41.04 88.44C38.69 87.43 37.01 85.02 37.01 82.45C37.01 79.26 39.19 76.85 42.61 75.90C43.50 75.67 43.62 75.73 43.73 76.34L46.53 93.03C46.64 93.65 46.58 93.65 45.74 93.82C44.85 93.98 43.73 94.10 42.61 94.10C32.81 94.10 26.48 88.66 26.48 80.88C26.48 77.58 27.04 73.15 31.69 67.89C35.05 64.14 37.62 62.06 40.26 59.94C40.82 59.49 40.93 59.54 41.04 60.16ZM46.08 76.23C45.97 75.56 46.02 75.39 46.70 75.45C51.23 75.84 54.98 79.65 54.98 84.58C54.98 88.10 52.86 90.96 49.72 92.53C49.05 92.86 48.94 92.86 48.82 92.19Z"/>
+        <g fill="none" stroke="#0d2b2a" stroke-width="1.85">
+          <line x1="16" y1="40" x2="764" y2="40"/>
+          <line x1="16" y1="54" x2="764" y2="54"/>
+          <line x1="16" y1="68" x2="764" y2="68"/>
+          <line x1="16" y1="82" x2="764" y2="82"/>
+          <line x1="16" y1="96" x2="764" y2="96"/>
+          <line x1="16" y1="40" x2="16" y2="96" stroke-width="2.2"/>
+          <line x1="764" y1="40" x2="764" y2="96" stroke-width="3.4"/>
+        </g>
+        <g fill="#0d2b2a">
+          <g transform="translate(95,68)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(155,61)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(225,61)"><g transform="translate(-17.5,0)"><path d="M6.30 -6.55C6.69 -6.72 6.97 -7.17 6.97 -7.50V-11.48C6.97 -11.76 6.80 -11.93 6.58 -11.93C6.47 -11.93 6.41 -11.93 6.30 -11.87C6.30 -11.87 5.18 -11.42 4.90 -11.37C4.51 -11.37 4.12 -11.65 4.12 -12.10V-18.93C4.12 -19.26 3.78 -19.54 3.33 -19.54C2.77 -19.54 2.44 -19.26 2.44 -18.93V-11.65C2.38 -11.09 2.21 -10.36 1.71 -10.02C1.04 -9.63 -0.87 -8.85 -1.82 -8.62C-2.32 -8.62 -2.49 -9.30 -2.49 -9.74V-16.46C-2.49 -16.80 -2.88 -17.08 -3.28 -17.08C-3.84 -17.08 -4.17 -16.80 -4.17 -16.46V-8.90C-4.17 -8.12 -4.51 -7.56 -4.84 -7.39C-5.18 -7.22 -6.30 -6.78 -6.30 -6.78C-6.69 -6.66 -6.97 -6.22 -6.97 -5.88V-1.90C-6.97 -1.57 -6.80 -1.40 -6.52 -1.40C-6.47 -1.40 -6.36 -1.46 -6.30 -1.46C-6.30 -1.46 -5.46 -1.79 -5.07 -2.02C-5.01 -2.02 -4.96 -2.07 -4.90 -2.07C-4.51 -2.07 -4.17 -1.51 -4.17 -1.06V4.48C-4.17 5.10 -4.45 5.60 -4.79 5.77C-5.12 5.88 -6.30 6.38 -6.30 6.38C-6.69 6.50 -6.97 6.94 -6.97 7.28V11.26C-6.97 11.59 -6.80 11.76 -6.52 11.76C-6.47 11.76 -6.36 11.70 -6.30 11.70C-6.30 11.70 -5.52 11.37 -5.01 11.20C-4.96 11.14 -4.90 11.14 -4.84 11.14C-4.45 11.14 -4.17 11.76 -4.17 12.04V18.93C-4.17 19.26 -3.84 19.54 -3.44 19.54C-2.88 19.54 -2.49 19.26 -2.49 18.93V11.14C-2.49 10.42 -2.21 10.02 -1.93 9.91L1.48 8.51C1.54 8.51 1.65 8.46 1.71 8.46C2.16 8.46 2.44 9.13 2.44 9.46V16.46C2.44 16.80 2.77 17.08 3.16 17.08C3.78 17.08 4.12 16.80 4.12 16.46V8.51C4.12 8.06 4.34 7.39 4.73 7.22C5.12 7.06 6.30 6.61 6.30 6.61C6.69 6.44 6.97 5.99 6.97 5.66V1.68C6.97 1.40 6.80 1.23 6.58 1.23C6.47 1.23 6.41 1.23 6.30 1.29L4.84 1.85C4.51 1.85 4.12 1.51 4.12 0.84V-4.37C4.12 -4.76 4.40 -5.82 4.84 -5.99ZM2.44 2.58C2.10 3.70 -0.53 4.82 -1.82 4.82C-2.16 4.82 -2.44 4.70 -2.49 4.54C-2.60 4.31 -2.66 3.08 -2.66 1.74C-2.66 9.37e-16 -2.60 -1.96 -2.49 -2.41C-2.38 -3.36 0.20 -4.54 1.60 -4.54C1.99 -4.54 2.32 -4.42 2.44 -4.20C2.55 -3.92 2.66 -2.52 2.66 -1.01C2.66 0.50 2.55 2.07 2.44 2.58Z"/></g><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(295,54)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(365,54)"><g transform="translate(-17.5,0)"><path d="M6.30 -6.55C6.69 -6.72 6.97 -7.17 6.97 -7.50V-11.48C6.97 -11.76 6.80 -11.93 6.58 -11.93C6.47 -11.93 6.41 -11.93 6.30 -11.87C6.30 -11.87 5.18 -11.42 4.90 -11.37C4.51 -11.37 4.12 -11.65 4.12 -12.10V-18.93C4.12 -19.26 3.78 -19.54 3.33 -19.54C2.77 -19.54 2.44 -19.26 2.44 -18.93V-11.65C2.38 -11.09 2.21 -10.36 1.71 -10.02C1.04 -9.63 -0.87 -8.85 -1.82 -8.62C-2.32 -8.62 -2.49 -9.30 -2.49 -9.74V-16.46C-2.49 -16.80 -2.88 -17.08 -3.28 -17.08C-3.84 -17.08 -4.17 -16.80 -4.17 -16.46V-8.90C-4.17 -8.12 -4.51 -7.56 -4.84 -7.39C-5.18 -7.22 -6.30 -6.78 -6.30 -6.78C-6.69 -6.66 -6.97 -6.22 -6.97 -5.88V-1.90C-6.97 -1.57 -6.80 -1.40 -6.52 -1.40C-6.47 -1.40 -6.36 -1.46 -6.30 -1.46C-6.30 -1.46 -5.46 -1.79 -5.07 -2.02C-5.01 -2.02 -4.96 -2.07 -4.90 -2.07C-4.51 -2.07 -4.17 -1.51 -4.17 -1.06V4.48C-4.17 5.10 -4.45 5.60 -4.79 5.77C-5.12 5.88 -6.30 6.38 -6.30 6.38C-6.69 6.50 -6.97 6.94 -6.97 7.28V11.26C-6.97 11.59 -6.80 11.76 -6.52 11.76C-6.47 11.76 -6.36 11.70 -6.30 11.70C-6.30 11.70 -5.52 11.37 -5.01 11.20C-4.96 11.14 -4.90 11.14 -4.84 11.14C-4.45 11.14 -4.17 11.76 -4.17 12.04V18.93C-4.17 19.26 -3.84 19.54 -3.44 19.54C-2.88 19.54 -2.49 19.26 -2.49 18.93V11.14C-2.49 10.42 -2.21 10.02 -1.93 9.91L1.48 8.51C1.54 8.51 1.65 8.46 1.71 8.46C2.16 8.46 2.44 9.13 2.44 9.46V16.46C2.44 16.80 2.77 17.08 3.16 17.08C3.78 17.08 4.12 16.80 4.12 16.46V8.51C4.12 8.06 4.34 7.39 4.73 7.22C5.12 7.06 6.30 6.61 6.30 6.61C6.69 6.44 6.97 5.99 6.97 5.66V1.68C6.97 1.40 6.80 1.23 6.58 1.23C6.47 1.23 6.41 1.23 6.30 1.29L4.84 1.85C4.51 1.85 4.12 1.51 4.12 0.84V-4.37C4.12 -4.76 4.40 -5.82 4.84 -5.99ZM2.44 2.58C2.10 3.70 -0.53 4.82 -1.82 4.82C-2.16 4.82 -2.44 4.70 -2.49 4.54C-2.60 4.31 -2.66 3.08 -2.66 1.74C-2.66 9.37e-16 -2.60 -1.96 -2.49 -2.41C-2.38 -3.36 0.20 -4.54 1.60 -4.54C1.99 -4.54 2.32 -4.42 2.44 -4.20C2.55 -3.92 2.66 -2.52 2.66 -1.01C2.66 0.50 2.55 2.07 2.44 2.58Z"/></g><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(455,47)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(515,40)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(585,40)"><g transform="translate(-17.5,0)"><path d="M6.30 -6.55C6.69 -6.72 6.97 -7.17 6.97 -7.50V-11.48C6.97 -11.76 6.80 -11.93 6.58 -11.93C6.47 -11.93 6.41 -11.93 6.30 -11.87C6.30 -11.87 5.18 -11.42 4.90 -11.37C4.51 -11.37 4.12 -11.65 4.12 -12.10V-18.93C4.12 -19.26 3.78 -19.54 3.33 -19.54C2.77 -19.54 2.44 -19.26 2.44 -18.93V-11.65C2.38 -11.09 2.21 -10.36 1.71 -10.02C1.04 -9.63 -0.87 -8.85 -1.82 -8.62C-2.32 -8.62 -2.49 -9.30 -2.49 -9.74V-16.46C-2.49 -16.80 -2.88 -17.08 -3.28 -17.08C-3.84 -17.08 -4.17 -16.80 -4.17 -16.46V-8.90C-4.17 -8.12 -4.51 -7.56 -4.84 -7.39C-5.18 -7.22 -6.30 -6.78 -6.30 -6.78C-6.69 -6.66 -6.97 -6.22 -6.97 -5.88V-1.90C-6.97 -1.57 -6.80 -1.40 -6.52 -1.40C-6.47 -1.40 -6.36 -1.46 -6.30 -1.46C-6.30 -1.46 -5.46 -1.79 -5.07 -2.02C-5.01 -2.02 -4.96 -2.07 -4.90 -2.07C-4.51 -2.07 -4.17 -1.51 -4.17 -1.06V4.48C-4.17 5.10 -4.45 5.60 -4.79 5.77C-5.12 5.88 -6.30 6.38 -6.30 6.38C-6.69 6.50 -6.97 6.94 -6.97 7.28V11.26C-6.97 11.59 -6.80 11.76 -6.52 11.76C-6.47 11.76 -6.36 11.70 -6.30 11.70C-6.30 11.70 -5.52 11.37 -5.01 11.20C-4.96 11.14 -4.90 11.14 -4.84 11.14C-4.45 11.14 -4.17 11.76 -4.17 12.04V18.93C-4.17 19.26 -3.84 19.54 -3.44 19.54C-2.88 19.54 -2.49 19.26 -2.49 18.93V11.14C-2.49 10.42 -2.21 10.02 -1.93 9.91L1.48 8.51C1.54 8.51 1.65 8.46 1.71 8.46C2.16 8.46 2.44 9.13 2.44 9.46V16.46C2.44 16.80 2.77 17.08 3.16 17.08C3.78 17.08 4.12 16.80 4.12 16.46V8.51C4.12 8.06 4.34 7.39 4.73 7.22C5.12 7.06 6.30 6.61 6.30 6.61C6.69 6.44 6.97 5.99 6.97 5.66V1.68C6.97 1.40 6.80 1.23 6.58 1.23C6.47 1.23 6.41 1.23 6.30 1.29L4.84 1.85C4.51 1.85 4.12 1.51 4.12 0.84V-4.37C4.12 -4.76 4.40 -5.82 4.84 -5.99ZM2.44 2.58C2.10 3.70 -0.53 4.82 -1.82 4.82C-2.16 4.82 -2.44 4.70 -2.49 4.54C-2.60 4.31 -2.66 3.08 -2.66 1.74C-2.66 9.37e-16 -2.60 -1.96 -2.49 -2.41C-2.38 -3.36 0.20 -4.54 1.60 -4.54C1.99 -4.54 2.32 -4.42 2.44 -4.20C2.55 -3.92 2.66 -2.52 2.66 -1.01C2.66 0.50 2.55 2.07 2.44 2.58Z"/></g><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(655,33)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          <g transform="translate(725,33)"><g transform="translate(-17.5,0)"><path d="M6.30 -6.55C6.69 -6.72 6.97 -7.17 6.97 -7.50V-11.48C6.97 -11.76 6.80 -11.93 6.58 -11.93C6.47 -11.93 6.41 -11.93 6.30 -11.87C6.30 -11.87 5.18 -11.42 4.90 -11.37C4.51 -11.37 4.12 -11.65 4.12 -12.10V-18.93C4.12 -19.26 3.78 -19.54 3.33 -19.54C2.77 -19.54 2.44 -19.26 2.44 -18.93V-11.65C2.38 -11.09 2.21 -10.36 1.71 -10.02C1.04 -9.63 -0.87 -8.85 -1.82 -8.62C-2.32 -8.62 -2.49 -9.30 -2.49 -9.74V-16.46C-2.49 -16.80 -2.88 -17.08 -3.28 -17.08C-3.84 -17.08 -4.17 -16.80 -4.17 -16.46V-8.90C-4.17 -8.12 -4.51 -7.56 -4.84 -7.39C-5.18 -7.22 -6.30 -6.78 -6.30 -6.78C-6.69 -6.66 -6.97 -6.22 -6.97 -5.88V-1.90C-6.97 -1.57 -6.80 -1.40 -6.52 -1.40C-6.47 -1.40 -6.36 -1.46 -6.30 -1.46C-6.30 -1.46 -5.46 -1.79 -5.07 -2.02C-5.01 -2.02 -4.96 -2.07 -4.90 -2.07C-4.51 -2.07 -4.17 -1.51 -4.17 -1.06V4.48C-4.17 5.10 -4.45 5.60 -4.79 5.77C-5.12 5.88 -6.30 6.38 -6.30 6.38C-6.69 6.50 -6.97 6.94 -6.97 7.28V11.26C-6.97 11.59 -6.80 11.76 -6.52 11.76C-6.47 11.76 -6.36 11.70 -6.30 11.70C-6.30 11.70 -5.52 11.37 -5.01 11.20C-4.96 11.14 -4.90 11.14 -4.84 11.14C-4.45 11.14 -4.17 11.76 -4.17 12.04V18.93C-4.17 19.26 -3.84 19.54 -3.44 19.54C-2.88 19.54 -2.49 19.26 -2.49 18.93V11.14C-2.49 10.42 -2.21 10.02 -1.93 9.91L1.48 8.51C1.54 8.51 1.65 8.46 1.71 8.46C2.16 8.46 2.44 9.13 2.44 9.46V16.46C2.44 16.80 2.77 17.08 3.16 17.08C3.78 17.08 4.12 16.80 4.12 16.46V8.51C4.12 8.06 4.34 7.39 4.73 7.22C5.12 7.06 6.30 6.61 6.30 6.61C6.69 6.44 6.97 5.99 6.97 5.66V1.68C6.97 1.40 6.80 1.23 6.58 1.23C6.47 1.23 6.41 1.23 6.30 1.29L4.84 1.85C4.51 1.85 4.12 1.51 4.12 0.84V-4.37C4.12 -4.76 4.40 -5.82 4.84 -5.99ZM2.44 2.58C2.10 3.70 -0.53 4.82 -1.82 4.82C-2.16 4.82 -2.44 4.70 -2.49 4.54C-2.60 4.31 -2.66 3.08 -2.66 1.74C-2.66 9.37e-16 -2.60 -1.96 -2.49 -2.41C-2.38 -3.36 0.20 -4.54 1.60 -4.54C1.99 -4.54 2.32 -4.42 2.44 -4.20C2.55 -3.92 2.66 -2.52 2.66 -1.01C2.66 0.50 2.55 2.07 2.44 2.58Z"/></g><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+        </g>
+        <line x1="410" y1="40" x2="410" y2="96" stroke="#5b7869" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <g font-family="Outfit, sans-serif" text-anchor="middle">
+          <text x="95" y="122" font-size="12" font-weight="700" fill="#0d2b2a">B</text>
+          <text x="95" y="140" font-size="9" font-weight="600" fill="#c45644">0 · B</text>
+          <text x="155" y="122" font-size="12" font-weight="700" fill="#0d2b2a">C</text>
+          <text x="155" y="140" font-size="9" font-weight="600" fill="#c45644">1 · B</text>
+          <text x="225" y="122" font-size="12" font-weight="700" fill="#0d2b2a">C♯</text>
+          <text x="225" y="140" font-size="9" font-weight="600" fill="#c45644">2 · B</text>
+          <text x="295" y="122" font-size="12" font-weight="700" fill="#0d2b2a">D</text>
+          <text x="295" y="140" font-size="9" font-weight="600" fill="#c45644">3 · B</text>
+          <text x="365" y="122" font-size="12" font-weight="700" fill="#0d2b2a">D♯</text>
+          <text x="365" y="140" font-size="9" font-weight="600" fill="#c45644">4 · B</text>
+          <text x="455" y="122" font-size="12" font-weight="700" fill="#0d2b2a">E</text>
+          <text x="455" y="140" font-size="9" font-weight="600" fill="#c45644">0 · E</text>
+          <text x="515" y="122" font-size="12" font-weight="700" fill="#0d2b2a">F</text>
+          <text x="515" y="140" font-size="9" font-weight="600" fill="#c45644">1 · E</text>
+          <text x="585" y="122" font-size="12" font-weight="700" fill="#0d2b2a">F♯</text>
+          <text x="585" y="140" font-size="9" font-weight="600" fill="#c45644">2 · E</text>
+          <text x="655" y="122" font-size="12" font-weight="700" fill="#0d2b2a">G</text>
+          <text x="655" y="140" font-size="9" font-weight="600" fill="#c45644">3 · E</text>
+          <text x="725" y="122" font-size="12" font-weight="700" fill="#0d2b2a">G♯</text>
+          <text x="725" y="140" font-size="9" font-weight="600" fill="#c45644">4 · E</text>
+          <text x="230" y="158" font-size="9" font-weight="600" letter-spacing="0.12em" fill="#5b7869">B STRING</text>
+          <text x="590" y="158" font-size="9" font-weight="600" letter-spacing="0.12em" fill="#5b7869">HIGH E STRING</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="tip-row">
+      <article class="tip tip-a">
+        <p class="kicker">Reading tip</p>
+        <h3>Fret under the note</h3>
+        <p>Labels like <strong>1 · B</strong> mean fret 1 on the B string. Open is <strong>0</strong>. Use them until the staff feels automatic.</p>
+      </article>
+      <article class="tip tip-b">
+        <p class="kicker">Left hand</p>
+        <h3>One finger per fret</h3>
+        <p>Fingers 1–4 cover frets 1–4. Sharps sit on frets 2 &amp; 4. Press just behind the fret wire.</p>
+      </article>
+      <article class="tip tip-c">
+        <p class="kicker">Next page</p>
+        <h3>Three practice songs</h3>
+        <p>Each melody uses both strings. Count aloud, then play. Slow and clean beats fast and sloppy.</p>
+      </article>
+    </div>
+
+    <footer>
+      <div class="foot foot-terra">
+        <p class="kicker">Rhythm Roots</p>
+        <p class="quote">Plant the roots. <em>Find the rhythm.</em></p>
+      </div>
+      <div class="foot foot-forest">
+        <p class="url">rhythmroots.studio</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===================== PAGE 2 ===================== -->
+  <div class="page">
+    <header>
+      <img class="logo" src="../assets/logo.png" alt="Rhythm Roots" />
+      <p class="page-mark">Page 2 · Practice</p>
+    </header>
+
+    <div class="hero">
+      <p class="eyebrow">Both strings · 4/4</p>
+      <h1>Three Practice Songs</h1>
+      <p class="lede">Quarter notes = one beat. Half notes = two. Fret · string cues sit under each pitch — wean off them as you learn.</p>
+    </div>
+
+    <div class="songs">
+      <!-- Song 1: Hot Cross Buns -->
+      <article class="song">
+        <div class="song-head">
+          <h2>1 · Hot Cross Buns</h2>
+          <p class="meta">Warm-up · C D E</p>
+        </div>
+        <p class="blurb">Cross from high E down to the B string. Say the note names before you pick.</p>
+        <svg class="staff-art" viewBox="0 -55 720 168" role="img" aria-label="Hot Cross Buns melody">
+          <path fill="#0d2b2a" d="M35.06 46.76C34.94 46.09 35.06 46.03 35.39 45.70C36.29 44.86 37.46 43.68 38.53 42.50C43.23 37.35 46.03 30.69 46.03 24.36C46.03 19.49 44.69 14.67 42.39 11.31C41.55 10.08 40.10 8.51 39.48 8.51C38.70 8.51 36.96 9.97 35.84 11.20C31.70 15.79 30.35 22.79 30.35 28.62C30.35 31.86 30.74 35.50 31.14 37.80C31.25 38.47 31.30 38.58 30.63 39.14C27.05 42.11 23.18 45.53 20.27 49.11C16.41 53.93 14.00 59.14 14.00 65.13C14.00 74.87 20.66 84.11 34.38 84.11C35.67 84.11 37.13 84.00 38.25 83.78C38.86 83.66 38.98 83.61 39.09 84.28C39.76 88.03 40.60 92.90 40.60 95.54C40.60 103.82 35.00 104.83 31.70 104.83C28.67 104.83 27.22 103.94 27.22 103.21C27.22 102.82 27.72 102.65 29.01 102.26C30.74 101.75 32.76 100.24 32.76 96.99C32.76 93.91 30.80 91.28 27.38 91.28C23.63 91.28 21.39 94.25 21.39 97.72C21.39 101.36 23.58 106.85 32.03 106.85C35.78 106.85 43.06 105.17 43.06 95.65C43.06 92.46 42.06 87.14 41.44 83.66C41.33 82.99 41.38 83.05 42.17 82.71C47.82 80.47 51.58 75.71 51.58 69.38C51.58 62.22 46.31 55.89 38.08 55.89C36.62 55.89 36.62 55.89 36.46 54.88ZM40.32 17.19C42.17 17.19 43.68 18.70 43.68 21.78C43.68 25.65 41.83 29.23 37.46 33.60C36.57 34.50 35.22 35.78 33.94 36.90C33.54 37.24 33.32 37.18 33.21 36.46C32.98 35.00 32.87 33.10 32.87 31.30C32.87 22.57 36.90 17.19 40.32 17.19ZM34.22 55.33C34.38 56.39 34.38 56.34 33.38 56.67C28.45 58.35 25.26 62.78 25.26 67.54C25.26 72.58 27.89 76.16 31.70 77.45C32.14 77.62 32.82 77.78 33.21 77.78C33.66 77.78 33.88 77.50 33.88 77.17C33.88 76.78 33.43 76.61 33.04 76.44C30.69 75.43 29.01 73.02 29.01 70.45C29.01 67.26 31.19 64.85 34.61 63.90C35.50 63.67 35.62 63.73 35.73 64.34L38.53 81.03C38.64 81.65 38.58 81.65 37.74 81.82C36.85 81.98 35.73 82.10 34.61 82.10C24.81 82.10 18.48 76.66 18.48 68.88C18.48 65.58 19.04 61.15 23.69 55.89C27.05 52.14 29.62 50.06 32.26 47.94C32.82 47.49 32.93 47.54 33.04 48.16ZM38.08 64.23C37.97 63.56 38.02 63.39 38.70 63.45C43.23 63.84 46.98 67.65 46.98 72.58C46.98 76.10 44.86 78.96 41.72 80.53C41.05 80.86 40.94 80.86 40.82 80.19Z"/>
+          <g fill="none" stroke="#0d2b2a" stroke-width="1.7">
+            <line x1="10" y1="28" x2="710" y2="28"/>
+            <line x1="10" y1="42" x2="710" y2="42"/>
+            <line x1="10" y1="56" x2="710" y2="56"/>
+            <line x1="10" y1="70" x2="710" y2="70"/>
+            <line x1="10" y1="84" x2="710" y2="84"/>
+            <line x1="10" y1="28" x2="10" y2="84" stroke-width="2"/>
+            <line x1="710" y1="28" x2="710" y2="84" stroke-width="3"/>
+            <!-- bar lines -->
+            <line x1="196" y1="28" x2="196" y2="84" stroke-width="1.5"/>
+            <line x1="340" y1="28" x2="340" y2="84" stroke-width="1.5"/>
+            <line x1="500" y1="28" x2="500" y2="84" stroke-width="1.5"/>
+            <line x1="640" y1="28" x2="640" y2="84" stroke-width="1.5"/>
+          </g>
+          <text x="88" y="54" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+          <text x="88" y="74" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+          <!-- pitches relative to G-line 70: E35 F28 D42 C49 -->
+          <!-- E D C | E D C | C C C C | D D D D | E D C -->
+          <g fill="#0d2b2a">
+            <g transform="translate(120,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(148,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(176,49)"><path d="M-2.83 7.00C6.41 7.00 8.26 -0.50 8.26 -2.35C8.26 -5.21 5.96 -7.00 2.72 -7.00C-5.63 -7.00 -8.26 -0.56 -8.26 2.35C-8.26 5.32 -5.91 7.00 -2.83 7.00ZM1.43 2.58C-1.09 4.26 -2.83 4.87 -4.06 4.87C-5.24 4.87 -5.91 4.26 -6.30 3.58C-6.47 3.25 -6.64 2.86 -6.64 2.46C-6.64 1.23 -5.40 -0.28 -1.54 -2.52C1.26 -4.14 3.00 -4.70 4.12 -4.70C5.18 -4.70 5.80 -4.20 6.19 -3.53C6.36 -3.19 6.52 -2.86 6.52 -2.46C6.52 -1.34 5.35 0.00 1.43 2.58Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(220,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(248,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(276,49)"><path d="M-2.83 7.00C6.41 7.00 8.26 -0.50 8.26 -2.35C8.26 -5.21 5.96 -7.00 2.72 -7.00C-5.63 -7.00 -8.26 -0.56 -8.26 2.35C-8.26 5.32 -5.91 7.00 -2.83 7.00ZM1.43 2.58C-1.09 4.26 -2.83 4.87 -4.06 4.87C-5.24 4.87 -5.91 4.26 -6.30 3.58C-6.47 3.25 -6.64 2.86 -6.64 2.46C-6.64 1.23 -5.40 -0.28 -1.54 -2.52C1.26 -4.14 3.00 -4.70 4.12 -4.70C5.18 -4.70 5.80 -4.20 6.19 -3.53C6.36 -3.19 6.52 -2.86 6.52 -2.46C6.52 -1.34 5.35 0.00 1.43 2.58Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(360,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(388,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(416,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(444,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(520,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(548,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(576,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(604,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(655,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(680,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(705,49)"><path d="M-2.83 7.00C6.41 7.00 8.26 -0.50 8.26 -2.35C8.26 -5.21 5.96 -7.00 2.72 -7.00C-5.63 -7.00 -8.26 -0.56 -8.26 2.35C-8.26 5.32 -5.91 7.00 -2.83 7.00ZM1.43 2.58C-1.09 4.26 -2.83 4.87 -4.06 4.87C-5.24 4.87 -5.91 4.26 -6.30 3.58C-6.47 3.25 -6.64 2.86 -6.64 2.46C-6.64 1.23 -5.40 -0.28 -1.54 -2.52C1.26 -4.14 3.00 -4.70 4.12 -4.70C5.18 -4.70 5.80 -4.20 6.19 -3.53C6.36 -3.19 6.52 -2.86 6.52 -2.46C6.52 -1.34 5.35 0.00 1.43 2.58Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          </g>
+          <g font-family="Outfit, sans-serif" font-size="8" font-weight="600" fill="#c45644" text-anchor="middle">
+            <text x="120" y="102">0E</text><text x="148" y="102">3B</text><text x="176" y="102">1B</text>
+            <text x="220" y="102">0E</text><text x="248" y="102">3B</text><text x="276" y="102">1B</text>
+            <text x="360" y="102">1B</text><text x="388" y="102">1B</text><text x="416" y="102">1B</text><text x="444" y="102">1B</text>
+            <text x="520" y="102">3B</text><text x="548" y="102">3B</text><text x="576" y="102">3B</text><text x="604" y="102">3B</text>
+            <text x="655" y="102">0E</text><text x="680" y="102">3B</text><text x="705" y="102">1B</text>
+          </g>
+        </svg>
+      </article>
+
+      <!-- Song 2: Ode to Joy phrase -->
+      <article class="song">
+        <div class="song-head">
+          <h2>2 · Ode to Joy</h2>
+          <p class="meta">Phrase · B through G</p>
+        </div>
+        <p class="blurb">Stay in first position. Watch the string changes between D (B string) and E (high E).</p>
+        <svg class="staff-art" viewBox="0 -55 720 168" role="img" aria-label="Ode to Joy phrase">
+          <path fill="#0d2b2a" d="M35.06 46.76C34.94 46.09 35.06 46.03 35.39 45.70C36.29 44.86 37.46 43.68 38.53 42.50C43.23 37.35 46.03 30.69 46.03 24.36C46.03 19.49 44.69 14.67 42.39 11.31C41.55 10.08 40.10 8.51 39.48 8.51C38.70 8.51 36.96 9.97 35.84 11.20C31.70 15.79 30.35 22.79 30.35 28.62C30.35 31.86 30.74 35.50 31.14 37.80C31.25 38.47 31.30 38.58 30.63 39.14C27.05 42.11 23.18 45.53 20.27 49.11C16.41 53.93 14.00 59.14 14.00 65.13C14.00 74.87 20.66 84.11 34.38 84.11C35.67 84.11 37.13 84.00 38.25 83.78C38.86 83.66 38.98 83.61 39.09 84.28C39.76 88.03 40.60 92.90 40.60 95.54C40.60 103.82 35.00 104.83 31.70 104.83C28.67 104.83 27.22 103.94 27.22 103.21C27.22 102.82 27.72 102.65 29.01 102.26C30.74 101.75 32.76 100.24 32.76 96.99C32.76 93.91 30.80 91.28 27.38 91.28C23.63 91.28 21.39 94.25 21.39 97.72C21.39 101.36 23.58 106.85 32.03 106.85C35.78 106.85 43.06 105.17 43.06 95.65C43.06 92.46 42.06 87.14 41.44 83.66C41.33 82.99 41.38 83.05 42.17 82.71C47.82 80.47 51.58 75.71 51.58 69.38C51.58 62.22 46.31 55.89 38.08 55.89C36.62 55.89 36.62 55.89 36.46 54.88ZM40.32 17.19C42.17 17.19 43.68 18.70 43.68 21.78C43.68 25.65 41.83 29.23 37.46 33.60C36.57 34.50 35.22 35.78 33.94 36.90C33.54 37.24 33.32 37.18 33.21 36.46C32.98 35.00 32.87 33.10 32.87 31.30C32.87 22.57 36.90 17.19 40.32 17.19ZM34.22 55.33C34.38 56.39 34.38 56.34 33.38 56.67C28.45 58.35 25.26 62.78 25.26 67.54C25.26 72.58 27.89 76.16 31.70 77.45C32.14 77.62 32.82 77.78 33.21 77.78C33.66 77.78 33.88 77.50 33.88 77.17C33.88 76.78 33.43 76.61 33.04 76.44C30.69 75.43 29.01 73.02 29.01 70.45C29.01 67.26 31.19 64.85 34.61 63.90C35.50 63.67 35.62 63.73 35.73 64.34L38.53 81.03C38.64 81.65 38.58 81.65 37.74 81.82C36.85 81.98 35.73 82.10 34.61 82.10C24.81 82.10 18.48 76.66 18.48 68.88C18.48 65.58 19.04 61.15 23.69 55.89C27.05 52.14 29.62 50.06 32.26 47.94C32.82 47.49 32.93 47.54 33.04 48.16ZM38.08 64.23C37.97 63.56 38.02 63.39 38.70 63.45C43.23 63.84 46.98 67.65 46.98 72.58C46.98 76.10 44.86 78.96 41.72 80.53C41.05 80.86 40.94 80.86 40.82 80.19Z"/>
+          <g fill="none" stroke="#0d2b2a" stroke-width="1.7">
+            <line x1="10" y1="28" x2="710" y2="28"/>
+            <line x1="10" y1="42" x2="710" y2="42"/>
+            <line x1="10" y1="56" x2="710" y2="56"/>
+            <line x1="10" y1="70" x2="710" y2="70"/>
+            <line x1="10" y1="84" x2="710" y2="84"/>
+            <line x1="10" y1="28" x2="10" y2="84" stroke-width="2"/>
+            <line x1="710" y1="28" x2="710" y2="84" stroke-width="3"/>
+            <line x1="250" y1="28" x2="250" y2="84" stroke-width="1.5"/>
+            <line x1="410" y1="28" x2="410" y2="84" stroke-width="1.5"/>
+            <line x1="570" y1="28" x2="570" y2="84" stroke-width="1.5"/>
+          </g>
+          <text x="88" y="54" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+          <text x="88" y="74" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+          <!-- E E F G | G F E D | C C D E | E D D- -->
+          <!-- y: G21 F28 E35 D42 C49 B56 -->
+          <g fill="#0d2b2a">
+            <g transform="translate(120,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(150,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(180,28)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(210,21)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(280,21)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(310,28)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(340,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(370,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(440,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(470,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(500,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(530,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(600,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(630,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(670,42)"><path d="M-2.83 7.00C6.41 7.00 8.26 -0.50 8.26 -2.35C8.26 -5.21 5.96 -7.00 2.72 -7.00C-5.63 -7.00 -8.26 -0.56 -8.26 2.35C-8.26 5.32 -5.91 7.00 -2.83 7.00ZM1.43 2.58C-1.09 4.26 -2.83 4.87 -4.06 4.87C-5.24 4.87 -5.91 4.26 -6.30 3.58C-6.47 3.25 -6.64 2.86 -6.64 2.46C-6.64 1.23 -5.40 -0.28 -1.54 -2.52C1.26 -4.14 3.00 -4.70 4.12 -4.70C5.18 -4.70 5.80 -4.20 6.19 -3.53C6.36 -3.19 6.52 -2.86 6.52 -2.46C6.52 -1.34 5.35 0.00 1.43 2.58Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          </g>
+                    <g font-family="Outfit, sans-serif" font-size="8" font-weight="600" fill="#c45644" text-anchor="middle">
+            <text x="120" y="102">0E</text><text x="150" y="102">0E</text><text x="180" y="102">1E</text><text x="210" y="102">3E</text>
+            <text x="280" y="102">3E</text><text x="310" y="102">1E</text><text x="340" y="102">0E</text><text x="370" y="102">3B</text>
+            <text x="440" y="102">1B</text><text x="470" y="102">1B</text><text x="500" y="102">3B</text><text x="530" y="102">0E</text>
+            <text x="600" y="102">0E</text><text x="630" y="102">3B</text><text x="670" y="102">3B</text>
+          </g>
+        </svg>
+      </article>
+
+      <!-- Song 3: Two-String Study -->
+      <article class="song">
+        <div class="song-head">
+          <h2>3 · Two-String Study</h2>
+          <p class="meta">Original · all six notes</p>
+        </div>
+        <p class="blurb">Neighbor notes across strings. Aim for even tone when you change from B to high E.</p>
+        <svg class="staff-art" viewBox="0 -55 720 168" role="img" aria-label="Two-String Study melody">
+          <path fill="#0d2b2a" d="M35.06 46.76C34.94 46.09 35.06 46.03 35.39 45.70C36.29 44.86 37.46 43.68 38.53 42.50C43.23 37.35 46.03 30.69 46.03 24.36C46.03 19.49 44.69 14.67 42.39 11.31C41.55 10.08 40.10 8.51 39.48 8.51C38.70 8.51 36.96 9.97 35.84 11.20C31.70 15.79 30.35 22.79 30.35 28.62C30.35 31.86 30.74 35.50 31.14 37.80C31.25 38.47 31.30 38.58 30.63 39.14C27.05 42.11 23.18 45.53 20.27 49.11C16.41 53.93 14.00 59.14 14.00 65.13C14.00 74.87 20.66 84.11 34.38 84.11C35.67 84.11 37.13 84.00 38.25 83.78C38.86 83.66 38.98 83.61 39.09 84.28C39.76 88.03 40.60 92.90 40.60 95.54C40.60 103.82 35.00 104.83 31.70 104.83C28.67 104.83 27.22 103.94 27.22 103.21C27.22 102.82 27.72 102.65 29.01 102.26C30.74 101.75 32.76 100.24 32.76 96.99C32.76 93.91 30.80 91.28 27.38 91.28C23.63 91.28 21.39 94.25 21.39 97.72C21.39 101.36 23.58 106.85 32.03 106.85C35.78 106.85 43.06 105.17 43.06 95.65C43.06 92.46 42.06 87.14 41.44 83.66C41.33 82.99 41.38 83.05 42.17 82.71C47.82 80.47 51.58 75.71 51.58 69.38C51.58 62.22 46.31 55.89 38.08 55.89C36.62 55.89 36.62 55.89 36.46 54.88ZM40.32 17.19C42.17 17.19 43.68 18.70 43.68 21.78C43.68 25.65 41.83 29.23 37.46 33.60C36.57 34.50 35.22 35.78 33.94 36.90C33.54 37.24 33.32 37.18 33.21 36.46C32.98 35.00 32.87 33.10 32.87 31.30C32.87 22.57 36.90 17.19 40.32 17.19ZM34.22 55.33C34.38 56.39 34.38 56.34 33.38 56.67C28.45 58.35 25.26 62.78 25.26 67.54C25.26 72.58 27.89 76.16 31.70 77.45C32.14 77.62 32.82 77.78 33.21 77.78C33.66 77.78 33.88 77.50 33.88 77.17C33.88 76.78 33.43 76.61 33.04 76.44C30.69 75.43 29.01 73.02 29.01 70.45C29.01 67.26 31.19 64.85 34.61 63.90C35.50 63.67 35.62 63.73 35.73 64.34L38.53 81.03C38.64 81.65 38.58 81.65 37.74 81.82C36.85 81.98 35.73 82.10 34.61 82.10C24.81 82.10 18.48 76.66 18.48 68.88C18.48 65.58 19.04 61.15 23.69 55.89C27.05 52.14 29.62 50.06 32.26 47.94C32.82 47.49 32.93 47.54 33.04 48.16ZM38.08 64.23C37.97 63.56 38.02 63.39 38.70 63.45C43.23 63.84 46.98 67.65 46.98 72.58C46.98 76.10 44.86 78.96 41.72 80.53C41.05 80.86 40.94 80.86 40.82 80.19Z"/>
+          <g fill="none" stroke="#0d2b2a" stroke-width="1.7">
+            <line x1="10" y1="28" x2="710" y2="28"/>
+            <line x1="10" y1="42" x2="710" y2="42"/>
+            <line x1="10" y1="56" x2="710" y2="56"/>
+            <line x1="10" y1="70" x2="710" y2="70"/>
+            <line x1="10" y1="84" x2="710" y2="84"/>
+            <line x1="10" y1="28" x2="10" y2="84" stroke-width="2"/>
+            <line x1="710" y1="28" x2="710" y2="84" stroke-width="3"/>
+            <line x1="250" y1="28" x2="250" y2="84" stroke-width="1.5"/>
+            <line x1="410" y1="28" x2="410" y2="84" stroke-width="1.5"/>
+            <line x1="570" y1="28" x2="570" y2="84" stroke-width="1.5"/>
+          </g>
+          <text x="88" y="54" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+          <text x="88" y="74" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="700" fill="#0d2b2a" text-anchor="middle">4</text>
+          <!-- B C D E | F E D C | B C E G | F E D C -->
+          <g fill="#0d2b2a">
+            <g transform="translate(120,56)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(150,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(180,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(210,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(280,28)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(310,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(340,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(370,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(440,56)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(470,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(500,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(530,21)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(600,28)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(630,35)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(660,42)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+            <g transform="translate(690,49)"><path d="M-2.83 7.00C2.16 7.00 8.26 2.41 8.26 -2.35C8.26 -5.21 6.02 -7.00 2.83 -7.00C-3.33 -7.00 -8.26 -2.46 -8.26 2.35C-8.26 5.26 -5.85 7.00 -2.83 7.00Z"/><rect x="7.57" y="-49.00" width="1.96" height="49.00"/></g>
+          </g>
+                    <g font-family="Outfit, sans-serif" font-size="8" font-weight="600" fill="#c45644" text-anchor="middle">
+            <text x="120" y="102">0B</text><text x="150" y="102">1B</text><text x="180" y="102">3B</text><text x="210" y="102">0E</text>
+            <text x="280" y="102">1E</text><text x="310" y="102">0E</text><text x="340" y="102">3B</text><text x="370" y="102">1B</text>
+            <text x="440" y="102">0B</text><text x="470" y="102">1B</text><text x="500" y="102">0E</text><text x="530" y="102">3E</text>
+            <text x="600" y="102">1E</text><text x="630" y="102">0E</text><text x="660" y="102">3B</text><text x="690" y="102">1B</text>
+          </g>
+        </svg>
+      </article>
+    </div>
+
+    <div class="legend">
+      <div class="chip"><strong>0 / 1 / 3</strong> — open, fret 1, fret 3 (naturals)</div>
+      <div class="chip"><strong>2E / 2B</strong> — fret 2 (finger 2) · F♯ or C♯</div>
+      <div class="chip"><strong>4E / 4B</strong> — fret 4 (finger 4) · G♯ or D♯</div>
+    </div>
+
+    <footer>
+      <div class="foot foot-terra">
+        <p class="kicker">Rhythm Roots</p>
+        <p class="quote">Plant the roots. <em>Find the rhythm.</em></p>
+      </div>
+      <div class="foot foot-forest">
+        <p class="url">rhythmroots.studio</p>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+---
+description: Print handout conventions — Bravura notation, letter layout, brand
+globs: handouts/**
+alwaysApply: false
+---
+
+# Rhythm Roots handouts
+
+Letter (8.5×11) HTML handouts in `handouts/`, printed to PDF via headless Chrome.
+
+## Music notation (required)
+
+Use **Bravura / SMuFL** outlines from `handouts/assets/notation/` — never hand-drawn ellipses, rect stacks, or scribble clefs.
+
+- Card icons (`viewBox="0 0 80 56"`): `whole-note`, `half-note`, `quarter-note`, `eighth-note`, `quarter-rest` (`.d.txt` or `.path.svg`)
+- Staff noteheads (staffSpace=14, centered at 0,0): `notehead-black`, `notehead-half` — place with `translate(x,y)` + stem rect; do **not** scale card-icon glyphs onto a staff
+- Staff accidentals: `accidental-sharp` — center on pitch, ~1.25sp left of notehead
+- Staff treble clef: `treble-clef-staff-kids.d.txt` / `treble-clef-staff-adult.d.txt`
+- Fill with `#0d2b2a` (or `currentColor`); draw clef **under** staff lines
+- Need a new symbol: extract from Bravura (SMuFL), add to `handouts/assets/notation/`, update `manifest.json`
+
+```html
+<!-- ✅ card glyph -->
+<svg viewBox="0 0 80 56" aria-hidden="true">
+  <path fill="#0d2b2a" d="…from quarter-note.d.txt…"/>
+</svg>
+
+<!-- ❌ cartoony placeholder -->
+<ellipse cx="34" cy="38" rx="12" ry="9" fill="#0d2b2a"/>
+```
+
+## Layout & brand
+
+Match existing handouts (Chromatic Scale, Parts of the Guitar, Rhythm):
+
+- Fonts: Fraunces (display) + Outfit (sans)
+- Colors: `--forest #0d2b2a`, `--terracotta #c45644`, `--sage`, `--ochre`, `--blush`, `--sand`, `--paper #faf7f1`
+- Structure: logo header → eyebrow + title + lede → content → footer (tagline + rhythmroots.studio)
+- Kids vs adult: friendlier copy + character mascot for kids; tighter language, no mascot for adult
+- Fixed page: `width/height: 8.5in/11in`, `@page { size: letter; margin: 0 }`, `print-color-adjust: exact`
+
+## Output
+
+Ship `.html` + letter PDF (+ optional `.png` preview) in the handout folder. Relative assets via `../assets/`, `../characters/`.
