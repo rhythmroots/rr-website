@@ -53,7 +53,7 @@
 
 @keyframes hero-ken {
 	from {
-		transform: scale(1.06);
+		transform: scale(1.18);
 	}
 	to {
 		transform: scale(1);
@@ -87,7 +87,7 @@
 }
 
 .animate-hero-ken {
-	animation: hero-ken 8s ease-out both;
+	animation: hero-ken 14s cubic-bezier(0.22, 0.2, 0.25, 1) both;
 }
 
 .animate-drift {

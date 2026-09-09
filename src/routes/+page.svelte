@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import logo from '$lib/assets/rr-logo-color.png';
 	import logoWhite from '$lib/assets/rr-logo-white.png';
+	import logoWhiteShadow from '$lib/assets/rr-logo-white-shadow.png';
 	import banner from '$lib/assets/rhythm-roots-banner-2.png';
 	import type { PageProps } from './$types';
 
@@ -81,11 +82,12 @@
 	<header class="absolute inset-x-0 top-0 z-20">
 		<div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
 			<a href="#top" class="logo inline-flex items-center" aria-label="Rhythm Roots home">
-				<img src={logo} alt="Rhythm Roots" class="h-32 w-auto md:h-40" />
+				<img src={logoWhiteShadow} alt="Rhythm Roots" class="h-32 w-auto lg:hidden my-12" />
+				<img src={logo} alt="Rhythm Roots" class="hidden h-40 w-auto lg:block" />
 			</a>
 			<a
 				href="#join"
-				class="rounded-full bg-paper/95 px-4 py-2 text-sm font-semibold tracking-wide text-forest shadow-sm transition hover:bg-white"
+				class="rounded-full bg-paper/95 px-4 py-2 text-sm font-semibold tracking-wide text-forest shadow-sm transition hover:bg-white hidden md:block"
 			>
 				Reserve a spot
 			</a>
