@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import logo from '$lib/assets/rr-logo-transparent.png';
+	import logo from '$lib/assets/rr-logo-color.png';
 	import logoWhite from '$lib/assets/rr-logo-white.png';
 	import banner from '$lib/assets/rhythm-roots-banner-2.png';
 	import type { PageProps } from './$types';
@@ -28,22 +28,22 @@
 	const details = [
 		{
 			label: 'When?',
-			body: 'Classes begin the third or fourth week of September.',
+			body: 'Beginner 1 starts mid-September. Beginner 2 starts mid-January.',
 			accent: 'blush'
 		},
 		{
 			label: 'How big?',
-			body: 'Just 2–4 students per class — small enough to grow.',
+			body: 'Just 2–4 students per class — small enough for individual attention and group participation.',
 			accent: 'sage'
 		},
 		{
 			label: 'How long?',
-			body: 'Each class is 30–45 minutes.',
+			body: 'Each class is 30–45 minutes depending on the lesson.',
 			accent: 'blush'
 		},
 		{
 			label: 'How many?',
-			body: 'Two 12-week blocks of classes.',
+			body: 'Beginner 1 and 2 are each 12 weeks. Beginner 2 is optional after completing Beginner 1.',
 			accent: 'sage'
 		},
 		{
@@ -53,7 +53,7 @@
 		},
 		{
 			label: 'How much?',
-			body: '$440 per student per block.',
+			body: '$440 per student per course.',
 			accent: 'forest'
 		}
 	] as const;
@@ -72,7 +72,7 @@
 		{
 			title: 'How to join',
 			accent: 'bg-ochre',
-			body: 'Complete the registration form below, then e-transfer the registration fee to reserve your place. The fee covers books and materials.'
+			body: 'Complete the registration form below, then e-transfer the payment to reserve your place.'
 		}
 	] as const;
 </script>
@@ -81,7 +81,7 @@
 	<header class="absolute inset-x-0 top-0 z-20">
 		<div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
 			<a href="#top" class="logo inline-flex items-center" aria-label="Rhythm Roots home">
-				<img src={logo} alt="Rhythm Roots" class="h-16 w-auto sm:h-20 lg:h-32" />
+				<img src={logo} alt="Rhythm Roots" class="h-32 w-auto md:h-40" />
 			</a>
 			<a
 				href="#join"
@@ -102,7 +102,7 @@
 				src={banner}
 				alt=""
 				aria-hidden="true"
-				class="animate-hero-ken absolute inset-0 h-full w-full object-cover object-[center_center] sm:object-[60%_center]"
+				class="animate-hero-ken absolute inset-0 h-full w-full origin-[85%_center] object-cover object-[85%_center]"
 			/>
 			<div
 				class="absolute inset-0 bg-gradient-to-r from-forest/55 via-forest/20 to-transparent"
@@ -126,8 +126,7 @@
 				<p
 					class="animate-fade-up-delay-2 mt-6 max-w-lg text-base leading-relaxed text-paper/90 sm:text-lg"
 				>
-					A customized beginner guitar curriculum for grades 4–6 — small groups, school-day lessons,
-					and music that actually sticks.
+					Customized beginner guitar courses for grades 4–6 — small groups, school-day lessons, and music that actually sticks.
 				</p>
 				<div class="animate-fade-up-delay-3 mt-9 flex flex-wrap items-center gap-4">
 					<a
@@ -164,19 +163,18 @@
 					<h2
 						class="mt-3 font-display text-3xl font-semibold tracking-tight text-balance text-forest sm:text-4xl"
 					>
-						Built for beginners who are ready to grow.
+						Built for your beginner who is ready to take on a new world of music.
 					</h2>
 					<p class="mt-4 max-w-xl text-base leading-relaxed text-ink/75 sm:text-lg">
-						Rhythm Roots is designed for the 2026–2027 school year — small group classes, clear
-						structure, and steady progress from the first chord to confident playing.
+						Rhythm Roots is designed for your child to enjoy small group classes, clear structure, and steady progress from the first note to confident playing.
 					</p>
 				</div>
 
-				<ul class="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+				<ul class="details mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
 					{#each details as item}
 						<li class="border-t border-forest/10 pt-5">
 							<p
-								class="text-xs font-semibold tracking-[0.18em] uppercase
+								class="text-md font-semibold tracking-[0.18em] uppercase
 								{item.accent === 'blush'
 									? 'text-terracotta'
 									: item.accent === 'sage'
@@ -223,40 +221,37 @@
 
 		<!-- Join / CTA -->
 		<section id="join" class="bg-forest py-20 text-paper sm:py-28">
-			<div
-				class="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16"
-			>
-				<div>
-					<p class="text-xs font-semibold tracking-[0.2em] text-blush uppercase">Reserve a spot</p>
-					<h2
-						class="mt-3 font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl"
-					>
-						Ready to plant the roots?
-					</h2>
-					<p class="mt-5 max-w-lg text-base leading-relaxed text-paper/80 sm:text-lg">
-						Share a few details and we’ll follow up with registration next steps. After you hear
-						back, e-transfer the registration fee to hold your place.
-					</p>
+			<div class="mx-auto max-w-7xl px-5 sm:px-8">
+				<p class="text-xs font-semibold tracking-[0.2em] text-blush uppercase">Reserve a spot</p>
+				<h2
+					class="mt-3 font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl"
+				>
+					Ready to plant the roots?
+				</h2>
+				<p class="mt-5 text-base leading-relaxed text-paper/80 sm:text-lg">
+					Share a few details and we’ll follow up with registration next steps.
+				</p>
 
-					<form
-						class="relative mt-10 max-w-lg space-y-4"
-						method="POST"
-						use:enhance={() => {
-							pending = true;
-							return async ({ result, update }) => {
-								pending = false;
-								await update({ reset: result.type === 'success' });
-								if (result.type === 'success') {
-									openThanks();
-								}
-							};
-						}}
-					>
-						<label class="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
-							Company
-							<input type="text" name="company" tabindex="-1" autocomplete="off" />
-						</label>
-						<input type="hidden" name="started" value={String(formStarted)} />
+				<form
+					class="relative mt-10 space-y-4"
+					method="POST"
+					use:enhance={() => {
+						pending = true;
+						return async ({ result, update }) => {
+							pending = false;
+							await update({ reset: result.type === 'success' });
+							if (result.type === 'success') {
+								openThanks();
+							}
+						};
+					}}
+				>
+					<label class="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+						Company
+						<input type="text" name="company" tabindex="-1" autocomplete="off" />
+					</label>
+					<input type="hidden" name="started" value={String(formStarted)} />
+					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 						<label class="block">
 							<span class="mb-1.5 block text-sm font-medium text-paper/80"
 								>Parent / guardian name</span
@@ -281,94 +276,78 @@
 								placeholder="you@email.com"
 							/>
 						</label>
+					</div>
+					<div class="grid grid-cols-1 gap-4 sm:grid-cols-[1.4fr_0.8fr]">
 						<label class="block">
-							<span class="mb-1.5 block text-sm font-medium text-paper/80"
-								>Student name & grade</span
-							>
+							<span class="mb-1.5 block text-sm font-medium text-paper/80">Student name</span>
 							<input
 								type="text"
 								name="student"
 								required
 								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 placeholder:text-paper/40 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
-								placeholder="e.g. Avery, Grade 5"
 							/>
 						</label>
-						<fieldset>
-							<legend class="mb-1.5 text-sm font-medium text-paper/80">Which block?</legend>
-							<p class="mb-3 text-sm text-paper/55">
-								$440 per student per block. Select one or both.
-							</p>
-							<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-								<label
-									class="flex cursor-pointer items-center gap-3 rounded-xl bg-paper/10 px-4 py-3 ring-1 ring-paper/20 transition has-[:checked]:bg-paper/15 has-[:checked]:ring-2 has-[:checked]:ring-blush"
-								>
-									<input
-										type="checkbox"
-										name="blocks"
-										value="Block 1"
-										class="size-4 rounded border-paper/30 bg-paper/10 text-terracotta focus:ring-blush"
-									/>
-									<span class="text-sm font-medium text-paper">Block 1</span>
-								</label>
-								<label
-									class="flex cursor-pointer items-center gap-3 rounded-xl bg-paper/10 px-4 py-3 ring-1 ring-paper/20 transition has-[:checked]:bg-paper/15 has-[:checked]:ring-2 has-[:checked]:ring-blush"
-								>
-									<input
-										type="checkbox"
-										name="blocks"
-										value="Block 2"
-										class="size-4 rounded border-paper/30 bg-paper/10 text-terracotta focus:ring-blush"
-									/>
-									<span class="text-sm font-medium text-paper">Block 2</span>
-								</label>
-							</div>
-						</fieldset>
 						<label class="block">
-							<span class="mb-1.5 block text-sm font-medium text-paper/80">Message (optional)</span>
-							<textarea
-								name="message"
-								rows="3"
-								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 placeholder:text-paper/40 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
-								placeholder="School, preferred days, or questions"></textarea>
+							<span class="mb-1.5 block text-sm font-medium text-paper/80">Grade</span>
+							<select
+								name="grade"
+								required
+								class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
+							>
+								<option value="" class="bg-forest text-paper">Select grade</option>
+								<option value="4" class="bg-forest text-paper">Grade 4</option>
+								<option value="5" class="bg-forest text-paper">Grade 5</option>
+								<option value="6" class="bg-forest text-paper">Grade 6</option>
+							</select>
 						</label>
-						{#if form?.error}
-							<p class="text-sm text-blush" role="alert">{form.error}</p>
-						{/if}
-						<button
-							type="submit"
-							disabled={pending}
-							class="inline-flex w-full items-center justify-center rounded-full bg-terracotta px-6 py-3.5 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-deep disabled:cursor-wait disabled:opacity-70 sm:w-auto"
-						>
-							{pending ? 'Sending…' : 'Send registration interest'}
-						</button>
-					</form>
-				</div>
-
-				<aside class="flex flex-col justify-between gap-8 lg:pt-10">
-					<div class="rounded-3xl bg-terracotta px-7 py-8 sm:px-8 sm:py-10">
-						<p class="text-lg font-semibold tracking-[0.2em] text-paper/80 uppercase">
-							Payment details
-						</p>
-						<ol class="mt-6 space-y-5">
-							<li class="flex gap-4">
-								<span
-									class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-paper/15 font-display text-sm font-semibold"
-									>>></span
-								>
-								<p class="pt-1 text-base leading-relaxed">
-									<strong class="font-semibold">E-transfer</strong> before the first class
-								</p>
-							</li>
-						</ol>
 					</div>
-
-					<div class="rounded-3xl bg-forest-soft px-7 py-8 ring-1 ring-paper/10 sm:px-8">
-						<p class="font-display text-2xl font-semibold tracking-tight">rhythmroots.studio</p>
-						<p class="mt-3 text-sm leading-relaxed text-paper/70">
-							Teaching students one step at a time.
-						</p>
-					</div>
-				</aside>
+					<fieldset>
+						<legend class="mb-1.5 text-sm font-medium text-paper/80">Select a Course</legend>
+						<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+							<label
+								class="flex cursor-pointer items-center gap-3 rounded-xl bg-paper/10 px-4 py-3 ring-1 ring-paper/20 transition has-[:checked]:bg-paper/15 has-[:checked]:ring-2 has-[:checked]:ring-blush"
+							>
+								<input
+									type="checkbox"
+									name="blocks"
+									value="Beginner 1"
+									class="size-4 rounded border-paper/30 bg-paper/10 text-terracotta focus:ring-blush"
+								/>
+								<span class="text-sm font-medium text-paper">Beginner 1</span>
+							</label>
+							<label
+								class="flex cursor-not-allowed items-center gap-3 rounded-xl bg-paper/10 px-4 py-3 opacity-55 ring-1 ring-paper/20"
+							>
+								<input
+									type="checkbox"
+									name="blocks"
+									value="Beginner 2"
+									disabled
+									class="size-4 rounded border-paper/30 bg-paper/10 text-terracotta"
+								/>
+								<span class="text-sm font-medium text-paper">Beginner 2 — coming soon</span>
+							</label>
+						</div>
+					</fieldset>
+					<label class="block">
+						<span class="mb-1.5 block text-sm font-medium text-paper/80">Message (optional)</span>
+						<textarea
+							name="message"
+							rows="3"
+							class="w-full rounded-xl border-0 bg-paper/10 px-4 py-3 text-paper ring-1 ring-paper/20 placeholder:text-paper/40 focus:bg-paper/15 focus:ring-2 focus:ring-blush"
+							placeholder="School, preferred days, or questions"></textarea>
+					</label>
+					{#if form?.error}
+						<p class="text-sm text-blush" role="alert">{form.error}</p>
+					{/if}
+					<button
+						type="submit"
+						disabled={pending}
+						class="inline-flex w-full items-center justify-center rounded-full bg-terracotta px-6 py-3.5 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-deep disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+					>
+						{pending ? 'Sending…' : 'Send registration interest'}
+					</button>
+				</form>
 			</div>
 		</section>
 	</main>

@@ -28,15 +28,18 @@ export const actions = {
 		const name = asText(data.get('name'), 200);
 		const email = asText(data.get('email'), 320).toLowerCase();
 		const student = asText(data.get('student'), 200);
+		const grade = asText(data.get('grade'), 10);
 		const message = asText(data.get('message'), 2000);
 		const blocks = data
 			.getAll('blocks')
 			.map((value) => String(value))
 			.filter((value) => value === 'Block 1' || value === 'Block 2');
 
-		if (!name || !email || !student) {
+		if (!name || !email || !student || !['4', '5', '6'].includes(grade)) {
 			return fail(400, { error: 'Please fill in all required fields.' });
 		}
+
+		const gradeLabel = `Grade ${grade}`;
 
 		if (!EMAIL_PATTERN.test(email)) {
 			return fail(400, { error: 'Please enter a valid email address.' });
@@ -57,7 +60,10 @@ export const actions = {
 		}
 
 		try {
-			await sendRegistrationEmail({ name, email, student, blocks, message }, platform?.env);
+			await sendRegistrationEmail(
+				{ name, email, student, grade: gradeLabel, blocks, message },
+				platform?.env
+			);
 		} catch (error) {
 			console.error('Registration email failed', error);
 			return fail(500, {

@@ -4,6 +4,7 @@ export type RegistrationEmail = {
 	name: string;
 	email: string;
 	student: string;
+	grade: string;
 	blocks: string[];
 	message: string;
 };
@@ -68,6 +69,7 @@ function studioBodies(registration: RegistrationEmail) {
 		`Parent / guardian: ${registration.name}`,
 		`Email: ${registration.email}`,
 		`Student: ${registration.student}`,
+		`Grade: ${registration.grade}`,
 		`Blocks: ${blocks}`,
 		`Message: ${message}`
 	].join('\n');
@@ -87,6 +89,10 @@ function studioBodies(registration: RegistrationEmail) {
 				<tr>
 					<td style="padding: 8px 0; color: #5b7869;">Student</td>
 					<td style="padding: 8px 0;">${escapeHtml(registration.student)}</td>
+				</tr>
+				<tr>
+					<td style="padding: 8px 0; color: #5b7869;">Grade</td>
+					<td style="padding: 8px 0;">${escapeHtml(registration.grade)}</td>
 				</tr>
 				<tr>
 					<td style="padding: 8px 0; color: #5b7869;">Blocks</td>
@@ -115,6 +121,7 @@ function confirmationBodies(registration: RegistrationEmail) {
 		'Thank you for your interest in Rhythm Roots. We received your registration details and will be in touch with you soon.',
 		'',
 		`Student: ${registration.student}`,
+		`Grade: ${registration.grade}`,
 		`Blocks: ${blocks}`,
 		'',
 		'If you have questions in the meantime, reply to this email.',
@@ -132,6 +139,7 @@ function confirmationBodies(registration: RegistrationEmail) {
 			</p>
 			<p style="margin: 0 0 16px;">
 				<strong>Student:</strong> ${escapeHtml(registration.student)}<br />
+				<strong>Grade:</strong> ${escapeHtml(registration.grade)}<br />
 				<strong>Blocks:</strong> ${escapeHtml(blocks)}
 			</p>
 			<p style="margin: 0 0 16px;">If you have questions in the meantime, reply to this email.</p>
