@@ -131,7 +131,9 @@
 			aria-label="Rhythm Roots introduction"
 		>
 			<div class="hero-media" aria-hidden="true">
-				<enhanced:img src={banner} alt="" sizes="100vw" fetchpriority="high" />
+				<div class="hero-ken">
+					<enhanced:img src={banner} alt="" sizes="100vw" fetchpriority="high" />
+				</div>
 			</div>
 			<div
 				class="absolute inset-0 bg-gradient-to-r from-forest/55 via-forest/20 to-transparent"
@@ -141,20 +143,24 @@
 			></div>
 
 			<div class="relative z-10 mx-auto w-full max-w-7xl px-5 pt-28 pb-10 sm:px-8 sm:pb-12">
-				<p class="mb-5 font-sans text-xs font-semibold tracking-[0.22em] text-blush uppercase">
+				<p
+					class="animate-fade-up mb-5 font-sans text-xs font-semibold tracking-[0.22em] text-blush uppercase"
+				>
 					2026–2027 · Grades 4–6
 				</p>
 				<h1
-					class="max-w-7xl font-display text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+					class="animate-fade-up-delay-1 max-w-7xl font-display text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
 				>
 					Plant the roots.
 					<em class="mt-1 block font-medium text-blush italic sm:mt-2">Find the rhythm.</em>
 				</h1>
-				<p class="mt-6 max-w-lg text-base leading-relaxed text-paper/90 sm:text-lg">
+				<p
+					class="animate-fade-up-delay-2 mt-6 max-w-lg text-base leading-relaxed text-paper/90 sm:text-lg"
+				>
 					Customized beginner guitar courses for grades 4–6 — small groups, school-day lessons, and
 					music that actually sticks.
 				</p>
-				<div class="mt-9 flex flex-wrap items-center gap-4">
+				<div class="animate-fade-up-delay-3 mt-9 flex flex-wrap items-center gap-4">
 					<a
 						href="#join"
 						class="inline-flex items-center justify-center rounded-full bg-terracotta px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-soft"

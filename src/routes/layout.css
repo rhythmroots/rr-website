@@ -45,7 +45,7 @@
 	--color-forest-soft: #1a3d3a;
 	--color-sage: #5b7869;
 	--color-sage-mist: #b5c4b1;
-	--color-terracotta:rgb(142, 48, 33);
+	--color-terracotta: rgb(142, 48, 33);
 	--color-terracotta-deep: #a84738;
 	--color-terracotta-soft: #b15547;
 	--color-ochre: #c1994f;
@@ -74,9 +74,20 @@
 	}
 }
 
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(1.25rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 @keyframes hero-ken {
 	from {
-		transform: scale(1.08);
+		transform: scale(1.18);
 	}
 	to {
 		transform: scale(1);
@@ -93,9 +104,26 @@
 	}
 }
 
+.animate-fade-up {
+	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-delay-1 {
+	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.animate-fade-up-delay-2 {
+	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+.animate-fade-up-delay-3 {
+	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both;
+}
+
 .hero-media,
-.hero-media picture,
-.hero-media img {
+.hero-ken,
+.hero-ken picture,
+.hero-ken img {
 	position: absolute;
 	inset: 0;
 	display: block;
@@ -104,11 +132,15 @@
 }
 
 .hero-media {
-	transform-origin: 85% center;
-	animation: hero-ken 8s cubic-bezier(0.22, 0.2, 0.25, 1) both;
+	overflow: hidden;
 }
 
-.hero-media img {
+.hero-ken {
+	transform-origin: 85% center;
+	animation: hero-ken 14s cubic-bezier(0.22, 0.2, 0.25, 1) both;
+}
+
+.hero-ken img {
 	object-fit: cover;
 	object-position: 85% center;
 }
@@ -127,7 +159,11 @@
 		scroll-behavior: auto;
 	}
 
-	.hero-media,
+	.animate-fade-up,
+	.animate-fade-up-delay-1,
+	.animate-fade-up-delay-2,
+	.animate-fade-up-delay-3,
+	.hero-ken,
 	.animate-drift {
 		animation: none !important;
 	}
