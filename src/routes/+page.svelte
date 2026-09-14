@@ -82,22 +82,22 @@
 	<header class="absolute inset-x-0 top-0 z-20">
 		<div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
 			<a href="#top" class="logo inline-flex items-center" aria-label="Rhythm Roots home">
-				<img src={logoWhiteShadow} alt="Rhythm Roots" class="h-32 w-auto lg:hidden my-12" />
+				<img src={logoWhiteShadow} alt="Rhythm Roots" class="my-12 h-32 w-auto lg:hidden" />
 				<img src={logo} alt="Rhythm Roots" class="hidden h-40 w-auto lg:block" />
 			</a>
 			<a
 				href="#join"
-				class="rounded-full bg-paper/95 px-4 py-2 text-sm font-semibold tracking-wide text-forest shadow-sm transition hover:bg-white hidden md:block"
+				class="hidden rounded-full bg-paper/95 px-4 py-2 text-sm font-semibold tracking-wide text-forest shadow-sm transition hover:bg-white md:block"
 			>
 				Reserve a spot
 			</a>
 		</div>
 	</header>
 
-	<main id="top">
+	<main id="top" class="v.1.1">
 		<!-- Hero -->
 		<section
-			class="relative isolate flex h-[600px] items-end overflow-hidden bg-forest text-paper"
+			class="relative isolate flex h-150 items-end overflow-hidden bg-forest text-paper"
 			aria-label="Rhythm Roots introduction"
 		>
 			<img
@@ -128,7 +128,8 @@
 				<p
 					class="animate-fade-up-delay-2 mt-6 max-w-lg text-base leading-relaxed text-paper/90 sm:text-lg"
 				>
-					Customized beginner guitar courses for grades 4–6 — small groups, school-day lessons, and music that actually sticks.
+					Customized beginner guitar courses for grades 4–6 — small groups, school-day lessons, and
+					music that actually sticks.
 				</p>
 				<div class="animate-fade-up-delay-3 mt-9 flex flex-wrap items-center gap-4">
 					<a
@@ -168,7 +169,8 @@
 						Built for your beginner who is ready to take on a new world of music.
 					</h2>
 					<p class="mt-4 max-w-xl text-base leading-relaxed text-ink/75 sm:text-lg">
-						Rhythm Roots is designed for your child to enjoy small group classes, clear structure, and steady progress from the first note to confident playing.
+						Rhythm Roots is designed for your child to enjoy small group classes, clear structure,
+						and steady progress from the first note to confident playing.
 					</p>
 				</div>
 

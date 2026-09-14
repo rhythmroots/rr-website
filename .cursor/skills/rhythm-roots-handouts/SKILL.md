@@ -15,9 +15,9 @@ Letter (8.5×11) HTML in `handouts/`, printed to PDF via headless Chrome.
 
 Before drawing notation or inventing layout, read a recent sibling and copy its tokens.
 
-| Kind | Canonical |
-|------|-----------|
-| Lesson / explainer | `handouts/Hold and Play/`, `handouts/Parts of the Guitar Kids/` |
+| Kind                | Canonical                                                                       |
+| ------------------- | ------------------------------------------------------------------------------- |
+| Lesson / explainer  | `handouts/Hold and Play/`, `handouts/Parts of the Guitar Kids/`                 |
 | Exercise / practice | `handouts/E String Note Exercise/` — see [exercise-pages.md](exercise-pages.md) |
 
 ## Workflow
@@ -40,13 +40,13 @@ Task progress:
 
 ## Naming & files
 
-| What | Pattern | Example |
-|------|---------|---------|
-| Folder | Title Case | `handouts/Hold and Play/` |
-| Kids/adult pair | suffix the folder | `Parts of the Guitar Kids/`, `Parts of the Guitar Adult/` |
-| HTML / PDF / PNG | kebab-case | `hold-and-play.html` |
-| Kids filename | `-kids` when the pair needs it | `eb-strings-kids.html` |
-| Versioned exercise files | `{stem}-adult-v.X.Y` / `{stem}-kids-v.X.Y` | `e-string-note-exercise-adult-v.1.0.html` |
+| What                     | Pattern                                    | Example                                                   |
+| ------------------------ | ------------------------------------------ | --------------------------------------------------------- |
+| Folder                   | Title Case                                 | `handouts/Hold and Play/`                                 |
+| Kids/adult pair          | suffix the folder                          | `Parts of the Guitar Kids/`, `Parts of the Guitar Adult/` |
+| HTML / PDF / PNG         | kebab-case                                 | `hold-and-play.html`                                      |
+| Kids filename            | `-kids` when the pair needs it             | `eb-strings-kids.html`                                    |
+| Versioned exercise files | `{stem}-adult-v.X.Y` / `{stem}-kids-v.X.Y` | `e-string-note-exercise-adult-v.1.0.html`                 |
 
 Keep prior versions. When an exercise sheet changes, **bump that variant’s version** (`v.1.0` → `v.1.1`) and write new `.html` / `.pdf` / `.png` beside it. Do not overwrite the previous version.
 
@@ -59,9 +59,20 @@ Relative assets only: `../assets/`, `../characters/`. Logo: `../assets/logo.png`
 Fixed page — do not let content paginate accidentally:
 
 ```css
-@page { size: letter portrait; margin: 0; }
-html, body { width: 8.5in; height: 11in; }
-.page { width: 8.5in; height: 11in; overflow: hidden; }
+@page {
+	size: letter portrait;
+	margin: 0;
+}
+html,
+body {
+	width: 8.5in;
+	height: 11in;
+}
+.page {
+	width: 8.5in;
+	height: 11in;
+	overflow: hidden;
+}
 ```
 
 Also set `-webkit-print-color-adjust: exact; print-color-adjust: exact`.
@@ -82,11 +93,11 @@ Also set `-webkit-print-color-adjust: exact; print-color-adjust: exact`.
 
 ## Kids vs adult
 
-| | Kids | Adult |
-|---|---|---|
-| Copy | Friendly, spoken, “let’s” / “!” ok | Compact, instructional |
-| Mascot | Lesson pages: girl or boy from `handouts/characters/`. Exercise pages: **no mascot** (practice pick instead) | None |
-| Notation | Same Bravura glyphs; kids clef file | Adult clef file |
+|          | Kids                                                                                                         | Adult                  |
+| -------- | ------------------------------------------------------------------------------------------------------------ | ---------------------- |
+| Copy     | Friendly, spoken, “let’s” / “!” ok                                                                           | Compact, instructional |
+| Mascot   | Lesson pages: girl or boy from `handouts/characters/`. Exercise pages: **no mascot** (practice pick instead) | None                   |
+| Notation | Same Bravura glyphs; kids clef file                                                                          | Adult clef file        |
 
 Prefer existing cutouts (`guitar-cutout.png`, `boy1-tshirt-point-left.png`, `neighbors.png`) over regenerating poses.
 
@@ -121,7 +132,7 @@ Read `handouts/assets/notation/README.md` + `manifest.json` before placing any s
 ```html
 <!-- ✅ card glyph -->
 <svg viewBox="0 0 80 56" aria-hidden="true">
-  <path fill="#475d53" d="…from quarter-note.d.txt"/>
+	<path fill="#475d53" d="…from quarter-note.d.txt" />
 </svg>
 ```
 

@@ -9,7 +9,11 @@ Versioned files live in the same folder: `{stem}-adult-v.X.Y` and `{stem}-kids-v
 Adult:
 
 ```css
-html, body, .page { background: #fff; }
+html,
+body,
+.page {
+	background: #fff;
+}
 ```
 
 No cream `--paper` page fill, no radial sage/blush/ochre washes.
@@ -21,7 +25,10 @@ Kids type matches the exercise mockup, not the adult sheet: load Fraunces italic
 Page padding `0.3in 0.36in 0.24in`. Then inset **header** and **hero** so they line up with type inside the cards (not the card’s outer edge):
 
 ```css
-header, .hero { padding: 0 0.12in; }
+header,
+.hero {
+	padding: 0 0.12in;
+}
 ```
 
 Fret map, exercise cards, tip row, and footer stay full content width. Adult fret map uses the same sand fill and thin sage-mist border as `.song`. Kids fret map is chips only, with a sage **Fret map** label on its own row so it never overlaps the Open chip.
@@ -30,17 +37,19 @@ Fret map, exercise cards, tip row, and footer stay full content width. Adult fre
 
 Five chips, first-position high E (or the matching string). Meta line is **Open / Fret 1 / Fret 2 / …** — no circled ①.
 
-| Chip | Background | Type (letter + meta) |
-|------|------------|----------------------|
-| Open (E / B / …) | `--forest` | `--paper` (cream) — same as the forest footer |
-| Naturals (F, G, …) | `--terracotta` | `--paper` — same fill as the “Plant the roots” footer |
-| Sharps (F♯, G♯, …) | `color-mix(in oklab, var(--ochre) 42%, white)` | `--forest` |
+| Chip               | Background                                     | Type (letter + meta)                                  |
+| ------------------ | ---------------------------------------------- | ----------------------------------------------------- |
+| Open (E / B / …)   | `--forest`                                     | `--paper` (cream) — same as the forest footer         |
+| Naturals (F, G, …) | `--terracotta`                                 | `--paper` — same fill as the “Plant the roots” footer |
+| Sharps (F♯, G♯, …) | `color-mix(in oklab, var(--ochre) 42%, white)` | `--forest`                                            |
 
 ```css
-.fret .note { font-size: 18px; }
+.fret .note {
+	font-size: 18px;
+}
 .fret .meta {
-  font-size: 12px;
-  color: inherit; /* same as the letter — never ochre/blush overrides */
+	font-size: 12px;
+	color: inherit; /* same as the letter — never ochre/blush overrides */
 }
 ```
 
@@ -48,15 +57,17 @@ Five chips, first-position high E (or the matching string). Meta line is **Open 
 
 ```css
 .song {
-  background: color-mix(in oklab, var(--sand) 55%, white);
-  border: 1px solid color-mix(in oklab, var(--sage-mist) 38%, white);
-  border-radius: 14px;
-  padding: 0.12in;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* equal space above the title and below the labels */
+	background: color-mix(in oklab, var(--sand) 55%, white);
+	border: 1px solid color-mix(in oklab, var(--sage-mist) 38%, white);
+	border-radius: 14px;
+	padding: 0.12in;
+	display: flex;
+	flex-direction: column;
+	justify-content: center; /* equal space above the title and below the labels */
 }
-.song-head h2 { color: #000; }
+.song-head h2 {
+	color: #000;
+}
 ```
 
 Section titles only (`1 · One note at a time`). No “Mm. 1–5 · quarters”.
@@ -73,11 +84,11 @@ Staff space = 14. Adult clef: `treble-clef-staff-adult.d.txt` (G-line y=82). Dra
 
 ```css
 .staff-art {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 860 / 172;
-  flex: 0 0 auto;
-  display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 860 / 172;
+	flex: 0 0 auto;
+	display: block;
 }
 ```
 
@@ -89,8 +100,8 @@ Staff space = 14. Adult clef: `treble-clef-staff-adult.d.txt` (G-line y=82). Dra
 
 ```html
 <g transform="translate(x,y)">
-  <g transform="scale(0.82)"><!-- sharp + notehead-black --></g>
-  <rect x="-5.80" y="0" width="1.50" height="49.00"/>
+	<g transform="scale(0.82)"><!-- sharp + notehead-black --></g>
+	<rect x="-5.80" y="0" width="1.50" height="49.00" />
 </g>
 ```
 

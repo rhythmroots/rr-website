@@ -46,8 +46,7 @@ export const actions = {
 		}
 
 		const cache = platform?.caches?.default as
-			| import('$lib/server/rate-limit').RateCache
-			| undefined;
+			import('$lib/server/rate-limit').RateCache | undefined;
 		const ip = getClientAddress();
 		const limited =
 			(await isRateLimited(cache, `ip:${ip}`, 3, 15 * 60)) ||
