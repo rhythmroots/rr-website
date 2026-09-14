@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import logo from '$lib/assets/rr-logo-color.png';
-	import logoWhite from '$lib/assets/rr-logo-white.png';
-	import missSomer from '$lib/assets/about-somer.webp';
-	import logoWhiteShadow from '$lib/assets/rr-logo-white-shadow.png';
-	import banner from '$lib/assets/rhythm-roots-banner-2.png';
+	import logo from '$lib/assets/rr-logo-color.png?enhanced&w=800&quality=80';
+	import logoWhite from '$lib/assets/rr-logo-white.png?enhanced&w=160&quality=80';
+	import missSomer from '$lib/assets/about-somer.webp?enhanced';
+	import logoWhiteShadow from '$lib/assets/rr-logo-white-shadow.png?enhanced&w=400&quality=80';
+	import banner from '$lib/assets/rhythm-roots-banner-2.png?enhanced&w=640;960;1280;1900';
 	import type { PageProps } from './$types';
 
 	let { form }: PageProps = $props();
@@ -79,12 +79,41 @@
 	] as const;
 </script>
 
+<svelte:head>
+	{#if banner.sources.avif}
+		<link
+			rel="preload"
+			as="image"
+			type="image/avif"
+			imagesrcset={banner.sources.avif}
+			imagesizes="100vw"
+			fetchpriority="high"
+		/>
+	{/if}
+</svelte:head>
+
 <div class="min-h-dvh overflow-x-hidden">
 	<header class="absolute inset-x-0 top-0 z-20">
 		<div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
 			<a href="#top" class="logo inline-flex items-center" aria-label="Rhythm Roots home">
-				<img src={logoWhiteShadow} alt="Rhythm Roots" class="my-12 h-32 w-auto lg:hidden" />
-				<img src={logo} alt="Rhythm Roots" class="hidden h-40 w-auto lg:block" />
+				<picture>
+					{#each Object.entries(logo.sources) as [format, srcset] (format)}
+						<source media="(min-width: 1024px)" {srcset} type="image/{format}" />
+					{/each}
+					<source media="(min-width: 1024px)" srcset={logo.img.src} type="image/png" />
+					{#each Object.entries(logoWhiteShadow.sources) as [format, srcset] (format)}
+						<source {srcset} type="image/{format}" />
+					{/each}
+					<img
+						src={logoWhiteShadow.img.src}
+						width={logoWhiteShadow.img.w}
+						height={logoWhiteShadow.img.h}
+						alt="Rhythm Roots"
+						fetchpriority="low"
+						decoding="async"
+						class="my-12 h-32 w-auto lg:h-40"
+					/>
+				</picture>
 			</a>
 			<a
 				href="#join"
@@ -101,12 +130,9 @@
 			class="relative isolate flex h-150 items-end overflow-hidden bg-forest text-paper"
 			aria-label="Rhythm Roots introduction"
 		>
-			<img
-				src={banner}
-				alt=""
-				aria-hidden="true"
-				class="animate-hero-ken absolute inset-0 h-full w-full origin-[85%_center] object-cover object-[85%_center]"
-			/>
+			<div class="hero-media" aria-hidden="true">
+				<enhanced:img src={banner} alt="" sizes="100vw" fetchpriority="high" />
+			</div>
 			<div
 				class="absolute inset-0 bg-gradient-to-r from-forest/55 via-forest/20 to-transparent"
 			></div>
@@ -115,24 +141,20 @@
 			></div>
 
 			<div class="relative z-10 mx-auto w-full max-w-7xl px-5 pt-28 pb-10 sm:px-8 sm:pb-12">
-				<p
-					class="animate-fade-up mb-5 font-sans text-xs font-semibold tracking-[0.22em] text-blush uppercase"
-				>
+				<p class="mb-5 font-sans text-xs font-semibold tracking-[0.22em] text-blush uppercase">
 					2026–2027 · Grades 4–6
 				</p>
 				<h1
-					class="animate-fade-up-delay-1 max-w-7xl font-display text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+					class="max-w-7xl font-display text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
 				>
 					Plant the roots.
 					<em class="mt-1 block font-medium text-blush italic sm:mt-2">Find the rhythm.</em>
 				</h1>
-				<p
-					class="animate-fade-up-delay-2 mt-6 max-w-lg text-base leading-relaxed text-paper/90 sm:text-lg"
-				>
+				<p class="mt-6 max-w-lg text-base leading-relaxed text-paper/90 sm:text-lg">
 					Customized beginner guitar courses for grades 4–6 — small groups, school-day lessons, and
 					music that actually sticks.
 				</p>
-				<div class="animate-fade-up-delay-3 mt-9 flex flex-wrap items-center gap-4">
+				<div class="mt-9 flex flex-wrap items-center gap-4">
 					<a
 						href="#join"
 						class="inline-flex items-center justify-center rounded-full bg-terracotta px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-soft"
@@ -147,7 +169,7 @@
 					</a>
 					<a
 						href="#about-miss-somer"
-						class="inline-flex items-center justify-center rounded-full bg-forest border border-forest px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:border-forest-soft hover:bg-forest-soft"
+						class="inline-flex items-center justify-center rounded-full border border-forest bg-forest px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:border-forest-soft hover:bg-forest-soft"
 					>
 						About Miss Somer
 					</a>
@@ -231,23 +253,38 @@
 		</section>
 
 		<!-- About Miss Somer -->
-		<section id="about-miss-somer" class="about-miss-somer py-20 sm:py-28" aria-labelledby="about-miss-somer">
+		<section
+			id="about-miss-somer"
+			class="about-miss-somer py-20 sm:py-28"
+			aria-labelledby="about-miss-somer"
+		>
 			<div class="mx-auto max-w-7xl px-5 sm:px-8">
-				<div class="grid lg:grid-cols-5 gap-10">
-					<div class="image lg:col-span-2 order-2 lg:order-1">
-						<img src={missSomer} alt="Miss Somer" class="rounded-xl lg:aspect-[9/12] object-cover object-top" />
+				<div class="grid gap-10 lg:grid-cols-5">
+					<div class="image order-2 lg:order-1 lg:col-span-2">
+						<enhanced:img
+							src={missSomer}
+							alt="Miss Somer"
+							loading="lazy"
+							decoding="async"
+							class="rounded-xl object-cover object-top lg:aspect-[9/12]"
+						/>
 					</div>
-					<div class="content lg:col-span-3 order-1 lg:order-2">
+					<div class="content order-1 lg:order-2 lg:col-span-3">
 						<h2
-						id="about-miss-somer-heading"
-						class="mb-5 font-display text-3xl font-semibold tracking-tight text-balance text-forest sm:text-4xl"
-					>
-						About Miss Somer
-					</h2>
-						<p class="text-base leading-relaxed text-ink/75 mb-4">
-							My love for music began when I was very young, singing with my sister. Growing up in North Carolina,music was always a part of every event. I took piano in high school and for the last few years have beenplaying guitar in a duo called acaciawood. I have developed this custom curriculum for young learners.</p>
-							<p class="text-base leading-relaxed text-ink/75">
-							Thank you for the opportunity to be a part of your child’s musical journey. I am looking forward to an amazing year!
+							id="about-miss-somer-heading"
+							class="mb-5 font-display text-3xl font-semibold tracking-tight text-balance text-forest sm:text-4xl"
+						>
+							About Miss Somer
+						</h2>
+						<p class="mb-4 text-base leading-relaxed text-ink/75">
+							My love for music began when I was very young, singing with my sister. Growing up in
+							North Carolina,music was always a part of every event. I took piano in high school and
+							for the last few years have beenplaying guitar in a duo called acaciawood. I have
+							developed this custom curriculum for young learners.
+						</p>
+						<p class="text-base leading-relaxed text-ink/75">
+							Thank you for the opportunity to be a part of your child’s musical journey. I am
+							looking forward to an amazing year!
 						</p>
 					</div>
 				</div>
@@ -413,7 +450,13 @@
 		<div
 			class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
 		>
-			<img src={logoWhite} alt="Rhythm Roots" class="h-8 w-auto opacity-90" />
+			<enhanced:img
+				src={logoWhite}
+				alt="Rhythm Roots"
+				loading="lazy"
+				decoding="async"
+				class="h-8 w-auto opacity-90"
+			/>
 			<p class="text-sm">
 				© {new Date().getFullYear()} Rhythm Roots. Beginner guitar lessons, grades 4–6.
 			</p>

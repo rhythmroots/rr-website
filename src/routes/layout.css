@@ -1,18 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap');
-
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
+
+@font-face {
+	font-family: 'Outfit Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url('@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2')
+		format('woff2-variations');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Fraunces Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url('@fontsource-variable/fraunces/files/fraunces-latin-standard-normal.woff2')
+		format('woff2-variations');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Fraunces Variable';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url('@fontsource-variable/fraunces/files/fraunces-latin-standard-italic.woff2')
+		format('woff2-variations');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 @theme {
-	--font-display: 'Fraunces', ui-serif, Georgia, serif;
-	--font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+	--font-display: 'Fraunces Variable', Fraunces, ui-serif, Georgia, serif;
+	--font-sans: 'Outfit Variable', Outfit, ui-sans-serif, system-ui, sans-serif;
 
 	--color-forest: #0d2b2a;
 	--color-forest-soft: #1a3d3a;
 	--color-sage: #5b7869;
 	--color-sage-mist: #b5c4b1;
-	--color-terracotta: #c45644;
+	--color-terracotta:rgb(142, 48, 33);
 	--color-terracotta-deep: #a84738;
 	--color-terracotta-soft: #b15547;
 	--color-ochre: #c1994f;
@@ -41,20 +74,9 @@
 	}
 }
 
-@keyframes fade-up {
-	from {
-		opacity: 0;
-		transform: translateY(1.25rem);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
 @keyframes hero-ken {
 	from {
-		transform: scale(1.18);
+		transform: scale(1.08);
 	}
 	to {
 		transform: scale(1);
@@ -71,24 +93,29 @@
 	}
 }
 
-.animate-fade-up {
-	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-media,
+.hero-media picture,
+.hero-media img {
+	position: absolute;
+	inset: 0;
+	display: block;
+	height: 100%;
+	width: 100%;
 }
 
-.animate-fade-up-delay-1 {
-	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+.hero-media {
+	transform-origin: 85% center;
+	animation: hero-ken 8s cubic-bezier(0.22, 0.2, 0.25, 1) both;
 }
 
-.animate-fade-up-delay-2 {
-	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+.hero-media img {
+	object-fit: cover;
+	object-position: 85% center;
 }
 
-.animate-fade-up-delay-3 {
-	animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both;
-}
-
-.animate-hero-ken {
-	animation: hero-ken 14s cubic-bezier(0.22, 0.2, 0.25, 1) both;
+.about-miss-somer .image picture {
+	display: block;
+	width: 100%;
 }
 
 .animate-drift {
@@ -100,11 +127,7 @@
 		scroll-behavior: auto;
 	}
 
-	.animate-fade-up,
-	.animate-fade-up-delay-1,
-	.animate-fade-up-delay-2,
-	.animate-fade-up-delay-3,
-	.animate-hero-ken,
+	.hero-media,
 	.animate-drift {
 		animation: none !important;
 	}
