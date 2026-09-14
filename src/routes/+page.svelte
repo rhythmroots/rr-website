@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import logo from '$lib/assets/rr-logo-color.png';
 	import logoWhite from '$lib/assets/rr-logo-white.png';
+	import missSomer from '$lib/assets/about-somer.webp';
 	import logoWhiteShadow from '$lib/assets/rr-logo-white-shadow.png';
 	import banner from '$lib/assets/rhythm-roots-banner-2.png';
 	import type { PageProps } from './$types';
@@ -134,7 +135,7 @@
 				<div class="animate-fade-up-delay-3 mt-9 flex flex-wrap items-center gap-4">
 					<a
 						href="#join"
-						class="inline-flex items-center justify-center rounded-full bg-terracotta px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-deep"
+						class="inline-flex items-center justify-center rounded-full bg-terracotta px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:bg-terracotta-soft"
 					>
 						Reserve a spot
 					</a>
@@ -143,6 +144,12 @@
 						class="inline-flex items-center justify-center rounded-full border border-paper/45 px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:border-paper hover:bg-paper/10"
 					>
 						Course details
+					</a>
+					<a
+						href="#about-miss-somer"
+						class="inline-flex items-center justify-center rounded-full bg-forest border border-forest px-6 py-3 text-sm font-semibold tracking-wide text-paper transition hover:border-forest-soft hover:bg-forest-soft"
+					>
+						About Miss Somer
 					</a>
 				</div>
 			</div>
@@ -219,6 +226,30 @@
 							<p class="mt-3 text-base leading-relaxed text-ink/75">{policy.body}</p>
 						</article>
 					{/each}
+				</div>
+			</div>
+		</section>
+
+		<!-- About Miss Somer -->
+		<section id="about-miss-somer" class="about-miss-somer py-20 sm:py-28" aria-labelledby="about-miss-somer">
+			<div class="mx-auto max-w-7xl px-5 sm:px-8">
+				<div class="grid lg:grid-cols-5 gap-10">
+					<div class="image lg:col-span-2 order-2 lg:order-1">
+						<img src={missSomer} alt="Miss Somer" class="rounded-xl lg:aspect-[9/12] object-cover object-top" />
+					</div>
+					<div class="content lg:col-span-3 order-1 lg:order-2">
+						<h2
+						id="about-miss-somer-heading"
+						class="mb-5 font-display text-3xl font-semibold tracking-tight text-balance text-forest sm:text-4xl"
+					>
+						About Miss Somer
+					</h2>
+						<p class="text-base leading-relaxed text-ink/75 mb-4">
+							My love for music began when I was very young, singing with my sister. Growing up in North Carolina,music was always a part of every event. I took piano in high school and for the last few years have beenplaying guitar in a duo called acaciawood. I have developed this custom curriculum for young learners.</p>
+							<p class="text-base leading-relaxed text-ink/75">
+							Thank you for the opportunity to be a part of your child’s musical journey. I am looking forward to an amazing year!
+						</p>
+					</div>
 				</div>
 			</div>
 		</section>
